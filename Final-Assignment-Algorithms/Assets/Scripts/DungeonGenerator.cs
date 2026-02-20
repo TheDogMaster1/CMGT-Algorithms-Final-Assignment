@@ -7,13 +7,17 @@ public class DungeonGenerator : MonoBehaviour
 {
     public List<RectInt> ToDoRooms;
     public List<RectInt> DoneRooms;
-    public int roomindex;
-    public bool splitVertical;
-    public int timesToSplit;
+    public RectInt maximumRoomSize;
+    private RectInt CurrentRoom;
 
+    private int roomindex;
     public float secondsToWait;
 
-    public RectInt maximumRoomSize;
+    public enum SplitType { withDelay, withSpacebar }
+
+    public SplitType splitType = SplitType.withDelay;
+
+
 
 
     private void Update()
@@ -27,56 +31,22 @@ public class DungeonGenerator : MonoBehaviour
         {
             AlgorithmsUtils.DebugRectInt(DoneRooms[i], Color.green);
         }
-        //for (int i = 0; i < outputRooms.Count; i++)
-        //{
-        //    if (i % 2 == 0)
-        //    {
-        //        AlgorithmsUtils.DebugRectInt(outputRooms[i], Color.red);
-        //    }
-        //    else
-        //    {
-        //        AlgorithmsUtils.DebugRectInt(outputRooms[i], Color.blue);
-        //    }
-        //}
-    }
-    [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private void SplitRooms()
-    {
-
-        if (splitVertical == true)
-        {
-            RectInt newroom = ToDoRooms[roomindex];
-            newroom.width = ToDoRooms[roomindex].width / 2 + 1;
-            ToDoRooms.Add(newroom);
-
-            newroom.width = ToDoRooms[roomindex].width - ToDoRooms[roomindex].width / 2;
-            newroom.x = ToDoRooms[roomindex].x + ToDoRooms[roomindex].width / 2;
-            ToDoRooms.Add(newroom);
-            ToDoRooms.Remove(ToDoRooms[roomindex]);
-        }
-        else
-        {
-            RectInt newroom = ToDoRooms[roomindex];
-            newroom.height = ToDoRooms[roomindex].height / 2 + 1;
-            ToDoRooms.Add(newroom);
-
-            newroom.height = ToDoRooms[roomindex].height - ToDoRooms[roomindex].height / 2;
-            newroom.y = ToDoRooms[roomindex].y + ToDoRooms[roomindex].height / 2;
-            ToDoRooms.Add(newroom);
-            ToDoRooms.Remove(ToDoRooms[roomindex]);
-        }
+        AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan);
     }
 
+
     [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private IEnumerator AutoSplitRooms()
+    private IEnumerator Splitrooms()
     {
-        int randomDirection = Random.Range(0, 2);
         while (ToDoRooms.Count > 0)
         {
             if (ToDoRooms[roomindex].width > ToDoRooms[roomindex].height)
             {
+                int splitPoint = Random.Range(5, ToDoRooms[roomindex].width - 5);
+                Debug.Log("SplitPoint is " + splitPoint);
                 RectInt newroom = ToDoRooms[roomindex];
-                newroom.width = ToDoRooms[roomindex].width / 2 + 1;
+                newroom.width = ToDoRooms[roomindex].width - splitPoint + 1;
+                CurrentRoom = newroom;
                 if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
                 {
                     DoneRooms.Add(newroom);
@@ -85,10 +55,11 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     ToDoRooms.Add(newroom);
                 }
-                yield return new WaitForSeconds(secondsToWait);
+                yield return SplitWait();
 
-                newroom.width = ToDoRooms[roomindex].width - ToDoRooms[roomindex].width / 2;
-                newroom.x = ToDoRooms[roomindex].x + ToDoRooms[roomindex].width / 2;
+                newroom.width = ToDoRooms[roomindex].width - (ToDoRooms[roomindex].width - splitPoint);
+                newroom.x = ToDoRooms[roomindex].x + (ToDoRooms[roomindex].width - splitPoint);
+                CurrentRoom = newroom;
                 if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
                 {
                     DoneRooms.Add(newroom);
@@ -97,14 +68,15 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     ToDoRooms.Add(newroom);
                 }
-                yield return new WaitForSeconds(secondsToWait);
-                randomDirection = Random.Range(0, 2);
+                yield return SplitWait();
                 ToDoRooms.Remove(ToDoRooms[roomindex]);
             }
             else
             {
+                int splitPoint = Random.Range(5, ToDoRooms[roomindex].height - 5);
                 RectInt newroom = ToDoRooms[roomindex];
-                newroom.height = ToDoRooms[roomindex].height / 2 + 1;
+                newroom.height = ToDoRooms[roomindex].height - splitPoint + 1;
+                CurrentRoom = newroom;
                 if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
                 {
                     DoneRooms.Add(newroom);
@@ -113,10 +85,11 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     ToDoRooms.Add(newroom);
                 }
-                yield return new WaitForSeconds(secondsToWait);
+                yield return SplitWait();
 
-                newroom.height = ToDoRooms[roomindex].height - ToDoRooms[roomindex].height / 2;
-                newroom.y = ToDoRooms[roomindex].y + ToDoRooms[roomindex].height / 2;
+                newroom.height = ToDoRooms[roomindex].height - (ToDoRooms[roomindex].height - splitPoint);
+                newroom.y = ToDoRooms[roomindex].y + (ToDoRooms[roomindex].height - splitPoint);
+                CurrentRoom = newroom;
                 if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
                 {
                     DoneRooms.Add(newroom);
@@ -125,47 +98,22 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     ToDoRooms.Add(newroom);
                 }
-                yield return new WaitForSeconds(secondsToWait);
-                randomDirection = Random.Range(0, 2);
+                yield return SplitWait();
                 ToDoRooms.Remove(ToDoRooms[roomindex]);
             }
         }
     }
 
-
-
-    [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private IEnumerator SplitMultipleRooms()
+    private IEnumerator SplitWait()
     {
-        for (int i = 0; i < timesToSplit; i++)
+        switch (splitType)
         {
-            if (splitVertical == true)
-            {
-                RectInt newroom = ToDoRooms[roomindex];
-                newroom.width = ToDoRooms[roomindex].width / 2 + 1;
-                ToDoRooms.Add(newroom);
+            case SplitType.withDelay:
                 yield return new WaitForSeconds(secondsToWait);
-
-
-                newroom.width = ToDoRooms[roomindex].width - ToDoRooms[roomindex].width / 2;
-                newroom.x = ToDoRooms[roomindex].x + ToDoRooms[roomindex].width / 2;
-                ToDoRooms.Add(newroom);
-                ToDoRooms.Remove(ToDoRooms[roomindex]);
-                yield return new WaitForSeconds(secondsToWait);
-            }
-            else
-            {
-                RectInt newroom = ToDoRooms[roomindex];
-                newroom.height = ToDoRooms[roomindex].height / 2 + 1;
-                ToDoRooms.Add(newroom);
-                yield return new WaitForSeconds(secondsToWait);
-
-                newroom.height = ToDoRooms[roomindex].height - ToDoRooms[roomindex].height / 2;
-                newroom.y = ToDoRooms[roomindex].y + ToDoRooms[roomindex].height / 2;
-                ToDoRooms.Add(newroom);
-                ToDoRooms.Remove(ToDoRooms[roomindex]);
-                yield return new WaitForSeconds(secondsToWait);
-            }
+                break;
+            case SplitType.withSpacebar:
+                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+                break;
         }
     }
 }
