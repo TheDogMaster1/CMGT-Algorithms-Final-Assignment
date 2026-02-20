@@ -240,14 +240,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf5874cf25e444086c07d7a466d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRooms:
-  - x: 0
-    y: 0
-    width: 100
-    height: 50
+  ToDoRooms: []
+  DoneRooms: []
   roomindex: 0
   splitVertical: 0
   timesToSplit: 0
+  maximumRoomSize:
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!4 &699533257
 Transform:
   m_ObjectHideFlags: 0
@@ -389,14 +391,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf5874cf25e444086c07d7a466d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRooms:
+  ToDoRooms:
   - x: 0
     y: 0
     width: 100
     height: 50
+  DoneRooms: []
   roomindex: 0
   splitVertical: 0
   timesToSplit: 10
+  maximumRoomSize:
+    x: 0
+    y: 0
+    width: 10
+    height: 10
 --- !u!4 &2061578847
 Transform:
   m_ObjectHideFlags: 0
