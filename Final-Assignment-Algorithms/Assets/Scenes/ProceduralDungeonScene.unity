@@ -204,8 +204,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73705937}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710665, y: 0, z: 0, w: 0.70710695}
-  m_LocalPosition: {x: 44.52131, y: 108.94588, z: 22.14681}
+  m_LocalRotation: {x: 0.70710665, y: -0, z: -0, w: 0.70710695}
+  m_LocalPosition: {x: 13.027042, y: 331.77243, z: 79.2575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &699533256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,16 +240,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf5874cf25e444086c07d7a466d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToDoRooms: []
+  ToDoRooms:
+  - x: 0
+    y: 0
+    width: 100
+    height: 50
   DoneRooms: []
-  roomindex: 0
-  splitVertical: 0
-  timesToSplit: 0
+  BaseRoom:
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   maximumRoomSize:
     x: 0
     y: 0
     width: 0
     height: 0
+  minSplitPoint: 0
+  secondsToWait: 0
+  splitType: 0
 --- !u!4 &699533257
 Transform:
   m_ObjectHideFlags: 0
@@ -391,20 +400,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf5874cf25e444086c07d7a466d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToDoRooms:
-  - x: 0
+  ToDoRooms: []
+  DoneRooms: []
+  BaseRoom:
+    x: 0
     y: 0
     width: 100
-    height: 50
-  DoneRooms: []
-  roomindex: 0
-  splitVertical: 0
-  timesToSplit: 10
+    height: 150
   maximumRoomSize:
     x: 0
     y: 0
     width: 10
-    height: 10
+    height: 20
+  minSplitPoint: 5
+  secondsToWait: 0
+  splitType: 1
 --- !u!4 &2061578847
 Transform:
   m_ObjectHideFlags: 0
