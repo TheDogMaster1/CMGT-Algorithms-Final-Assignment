@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AlgorithmsUtils
 {
-    
+
     public static bool Intersects(RectInt a, RectInt b)
     {
         return a.xMin < b.xMax &&
@@ -10,7 +10,7 @@ public class AlgorithmsUtils
                a.yMin < b.yMax &&
                a.yMax > b.yMin;
     }
-    
+
     public static RectInt Intersect(RectInt a, RectInt b)
     {
         int x = Mathf.Max(a.xMin, b.xMin);
@@ -27,7 +27,7 @@ public class AlgorithmsUtils
             return new RectInt(x, y, width, height);
         }
     }
-    
+
     public static void FillRectangle(char[,] array, RectInt area, char value)
     {
         for (int i = area.y; i < area.y + area.height; i++)
@@ -38,10 +38,10 @@ public class AlgorithmsUtils
             }
         }
     }
-    
-    public static void FillRectangleOutline(char[,] array, RectInt area, char value) 
-    { 
-        
+
+    public static void FillRectangleOutline(char[,] array, RectInt area, char value)
+    {
+
         int endX = area.x + area.width - 1;
         int endY = area.y + area.height - 1;
 
@@ -62,6 +62,6 @@ public class AlgorithmsUtils
 
     public static void DebugRectInt(RectInt rectInt, Color color, float duration = 0f, bool depthTest = false, float height = 0.01f)
     {
-        DebugExtension.DebugBounds(new Bounds(new Vector3(rectInt.center.x, 0, rectInt.center.y), new Vector3(rectInt.width, height, rectInt.height)), color, duration, depthTest);
+        DebugExtension.DebugBounds(new Bounds(new Vector3(rectInt.center.x, height / 2, rectInt.center.y), new Vector3(rectInt.width, height, rectInt.height)), color, duration, depthTest);
     }
 }

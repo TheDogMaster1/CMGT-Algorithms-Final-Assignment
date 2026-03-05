@@ -254,6 +254,7 @@ MonoBehaviour:
     width: 0
     height: 0
   minSplitPoint: 0
+  overlapAmount: 1
   secondsToWait: 0
   splitType: 0
 --- !u!4 &699533257
@@ -410,7 +411,8 @@ MonoBehaviour:
     y: 0
     width: 40
     height: 40
-  minSplitPoint: 20
+  minSplitPoint: 30
+  overlapAmount: 1
   secondsToWait: 0
   splitType: 1
 --- !u!4 &2061578847

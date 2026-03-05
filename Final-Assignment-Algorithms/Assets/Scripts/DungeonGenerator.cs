@@ -13,6 +13,8 @@ public class DungeonGenerator : MonoBehaviour
     private RectInt CurrentRoom;
 
     public int minSplitPoint;
+    public int overlapAmount = 1;
+
 
     private int roomindex;
     public float secondsToWait;
@@ -34,12 +36,13 @@ public class DungeonGenerator : MonoBehaviour
         for (int i = 0; i < doneRooms.Count; i++)
         {
             AlgorithmsUtils.DebugRectInt(doneRooms[i], Color.green, 0);
-            //AlgorithmsUtils.DebugRectInt(DoneRooms[i], Color.blue, 0, false, 10);
+            AlgorithmsUtils.DebugRectInt(doneRooms[i], new Color(0.8f, 0, 1, 1), 0, false, 3);
+            RectInt test = doneRooms[i];
         }
 
         for (int i = 0; i < doors.Count; i++)
         {
-            AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0);
+            AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0, false, 3);
         }
         AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
     }
@@ -60,7 +63,7 @@ public class DungeonGenerator : MonoBehaviour
                 int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].width - minSplitPoint);
                 Debug.Log("SplitPoint is " + splitPoint);
                 RectInt newroom = toDoRooms[roomindex];
-                newroom.width = toDoRooms[roomindex].width - splitPoint + 1;
+                newroom.width = toDoRooms[roomindex].width - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
                 {
@@ -96,7 +99,7 @@ public class DungeonGenerator : MonoBehaviour
             {
                 int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].height - minSplitPoint);
                 RectInt newroom = toDoRooms[roomindex];
-                newroom.height = toDoRooms[roomindex].height - splitPoint + 1;
+                newroom.height = toDoRooms[roomindex].height - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
                 {
@@ -137,13 +140,12 @@ public class DungeonGenerator : MonoBehaviour
     {
         for (int i = 0; i < doneRooms.Count; i++)
         {
-            for (int j = 0; j < doneRooms.Count; j++)
+            for (int j = i + 1; j < doneRooms.Count; j++)
             {
-                if (i == j) continue;
                 if (AlgorithmsUtils.Intersects(doneRooms[i], doneRooms[j]))
                 {
                     RectInt door = AlgorithmsUtils.Intersect(doneRooms[i], doneRooms[j]);
-                    if (door.height > 5 || door.width > 5)
+                    if (door.height > 10 || door.width > 10)
                     {
                         if (door.width > door.height)
                         {
