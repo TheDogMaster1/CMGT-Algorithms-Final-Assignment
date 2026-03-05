@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public List<RectInt> ToDoRooms;
-    public List<RectInt> DoneRooms;
+    public List<RectInt> toDoRooms;
+    public List<RectInt> doneRooms;
+    public List<RectInt> doors;
     public RectInt BaseRoom;
     public RectInt maximumRoomSize;
     private RectInt CurrentRoom;
@@ -25,15 +26,20 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < ToDoRooms.Count; i++)
+        for (int i = 0; i < toDoRooms.Count; i++)
         {
-            AlgorithmsUtils.DebugRectInt(ToDoRooms[i], Color.red);
+            AlgorithmsUtils.DebugRectInt(toDoRooms[i], Color.red);
         }
 
-        for (int i = 0; i < DoneRooms.Count; i++)
+        for (int i = 0; i < doneRooms.Count; i++)
         {
-            AlgorithmsUtils.DebugRectInt(DoneRooms[i], Color.green, 0);
+            AlgorithmsUtils.DebugRectInt(doneRooms[i], Color.green, 0);
             //AlgorithmsUtils.DebugRectInt(DoneRooms[i], Color.blue, 0, false, 10);
+        }
+
+        for (int i = 0; i < doors.Count; i++)
+        {
+            AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0);
         }
         AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
     }
@@ -42,88 +48,134 @@ public class DungeonGenerator : MonoBehaviour
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator Splitrooms()
     {
-        ToDoRooms.Clear();
-        DoneRooms.Clear();
+        toDoRooms.Clear();
+        doneRooms.Clear();
+        doors.Clear();
 
-        ToDoRooms.Add(BaseRoom);
-        while (ToDoRooms.Count > 0)
+        toDoRooms.Add(BaseRoom);
+        while (toDoRooms.Count > 0)
         {
-            if (ToDoRooms[roomindex].width > ToDoRooms[roomindex].height)
+            if (toDoRooms[roomindex].width > toDoRooms[roomindex].height)
             {
-                int splitPoint = Random.Range(minSplitPoint, ToDoRooms[roomindex].width - minSplitPoint);
+                int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].width - minSplitPoint);
                 Debug.Log("SplitPoint is " + splitPoint);
-                RectInt newroom = ToDoRooms[roomindex];
-                newroom.width = ToDoRooms[roomindex].width - splitPoint + 1;
+                RectInt newroom = toDoRooms[roomindex];
+                newroom.width = toDoRooms[roomindex].width - splitPoint + 1;
                 CurrentRoom = newroom;
-                if (newroom.width <= maximumRoomSize.width)
+                if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
                 {
-                    DoneRooms.Add(newroom);
+                    doneRooms.Add(newroom);
                 }
                 else
                 {
-                    ToDoRooms.Add(newroom);
+                    toDoRooms.Add(newroom);
                 }
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
                 }
 
-                newroom.width = ToDoRooms[roomindex].width - (ToDoRooms[roomindex].width - splitPoint);
-                newroom.x = ToDoRooms[roomindex].x + (ToDoRooms[roomindex].width - splitPoint);
+                newroom.width = toDoRooms[roomindex].width - (toDoRooms[roomindex].width - splitPoint);
+                newroom.x = toDoRooms[roomindex].x + (toDoRooms[roomindex].width - splitPoint);
                 CurrentRoom = newroom;
-                if (newroom.width <= maximumRoomSize.width)
+                if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
                 {
-                    DoneRooms.Add(newroom);
+                    doneRooms.Add(newroom);
                 }
                 else
                 {
-                    ToDoRooms.Add(newroom);
+                    toDoRooms.Add(newroom);
                 }
+                toDoRooms.Remove(toDoRooms[roomindex]);
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
                 }
-                ToDoRooms.Remove(ToDoRooms[roomindex]);
             }
             else
             {
-                int splitPoint = Random.Range(minSplitPoint, ToDoRooms[roomindex].height - minSplitPoint);
-                RectInt newroom = ToDoRooms[roomindex];
-                newroom.height = ToDoRooms[roomindex].height - splitPoint + 1;
+                int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].height - minSplitPoint);
+                RectInt newroom = toDoRooms[roomindex];
+                newroom.height = toDoRooms[roomindex].height - splitPoint + 1;
                 CurrentRoom = newroom;
-                if (newroom.height <= maximumRoomSize.height)
+                if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
                 {
-                    DoneRooms.Add(newroom);
+                    doneRooms.Add(newroom);
                 }
                 else
                 {
-                    ToDoRooms.Add(newroom);
+                    toDoRooms.Add(newroom);
                 }
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
                 }
 
-                newroom.height = ToDoRooms[roomindex].height - (ToDoRooms[roomindex].height - splitPoint);
-                newroom.y = ToDoRooms[roomindex].y + (ToDoRooms[roomindex].height - splitPoint);
+                newroom.height = toDoRooms[roomindex].height - (toDoRooms[roomindex].height - splitPoint);
+                newroom.y = toDoRooms[roomindex].y + (toDoRooms[roomindex].height - splitPoint);
                 CurrentRoom = newroom;
-                if (newroom.height <= maximumRoomSize.height)
+                if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
                 {
-                    DoneRooms.Add(newroom);
+                    doneRooms.Add(newroom);
                 }
                 else
                 {
-                    ToDoRooms.Add(newroom);
+                    toDoRooms.Add(newroom);
                 }
+                toDoRooms.Remove(toDoRooms[roomindex]);
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
                 }
+            }
+        }
+        CurrentRoom = RectInt.zero;
+    }
 
-                ToDoRooms.Remove(ToDoRooms[roomindex]);
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private IEnumerator AddDoors()
+    {
+        for (int i = 0; i < doneRooms.Count; i++)
+        {
+            for (int j = 0; j < doneRooms.Count; j++)
+            {
+                if (i == j) continue;
+                if (AlgorithmsUtils.Intersects(doneRooms[i], doneRooms[j]))
+                {
+                    RectInt door = AlgorithmsUtils.Intersect(doneRooms[i], doneRooms[j]);
+                    if (door.height > 5 || door.width > 5)
+                    {
+                        if (door.width > door.height)
+                        {
+                            door.x += door.width / 2 - 1;
+                            door.width = 3;
+                        }
+                        else
+                        {
+                            door.y += door.height / 2 - 1;
+                            door.height = 3;
+                        }
+                        doors.Add(door);
+                    }
+                    Debug.Log(door.ToString());
+                    if (splitType != SplitType.instant)
+                    {
+                        yield return SplitWait();
+                    }
+                }
             }
         }
     }
+
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private IEnumerator GenerateDungeonWithDoors()
+    {
+        StartCoroutine(Splitrooms());
+        yield return new WaitUntil(() => toDoRooms.Count == 0);
+        StartCoroutine(AddDoors());
+        yield return null;
+    }
+
 
     private IEnumerator SplitWait()
     {
