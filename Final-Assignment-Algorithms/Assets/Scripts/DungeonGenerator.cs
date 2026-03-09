@@ -11,21 +11,24 @@ public class DungeonGenerator : MonoBehaviour
     public RectInt BaseRoom;
     public RectInt maximumRoomSize;
     private RectInt CurrentRoom;
+    private RectInt currenDoor;
 
     public int minSplitPoint;
     public int overlapAmount = 1;
 
-
     private int roomindex;
     public float secondsToWait;
 
+    private DungeonGraphController graphController;
     public enum SplitType { instant, withDelay, withSpacebar }
 
     public SplitType splitType = SplitType.withDelay;
 
 
-
-
+    private void Start()
+    {
+        graphController = GetComponent<DungeonGraphController>();
+    }
     private void Update()
     {
         for (int i = 0; i < toDoRooms.Count; i++)
@@ -45,6 +48,7 @@ public class DungeonGenerator : MonoBehaviour
             AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0, false, 3);
         }
         AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
+        AlgorithmsUtils.DebugRectInt(currenDoor, Color.cyan, 0, false, 3);
     }
 
 
@@ -54,6 +58,8 @@ public class DungeonGenerator : MonoBehaviour
         toDoRooms.Clear();
         doneRooms.Clear();
         doors.Clear();
+        graphController.roomGraph.ClearGraph();
+        graphController.doorGraph.ClearGraph();
 
         toDoRooms.Add(BaseRoom);
         while (toDoRooms.Count > 0)
@@ -61,7 +67,7 @@ public class DungeonGenerator : MonoBehaviour
             if (toDoRooms[roomindex].width > toDoRooms[roomindex].height)
             {
                 int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].width - minSplitPoint);
-                Debug.Log("SplitPoint is " + splitPoint);
+                //Debug.Log("SplitPoint is " + splitPoint);
                 RectInt newroom = toDoRooms[roomindex];
                 newroom.width = toDoRooms[roomindex].width - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
@@ -157,9 +163,9 @@ public class DungeonGenerator : MonoBehaviour
                             door.y += door.height / 2 - 1;
                             door.height = 3;
                         }
+                        currenDoor = door;
                         doors.Add(door);
                     }
-                    Debug.Log(door.ToString());
                     if (splitType != SplitType.instant)
                     {
                         yield return SplitWait();
@@ -167,6 +173,7 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
+        currenDoor = RectInt.zero;
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -177,7 +184,6 @@ public class DungeonGenerator : MonoBehaviour
         StartCoroutine(AddDoors());
         yield return null;
     }
-
 
     private IEnumerator SplitWait()
     {
