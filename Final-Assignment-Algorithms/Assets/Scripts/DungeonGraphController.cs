@@ -1,6 +1,8 @@
 using NaughtyAttributes;
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 public class DungeonGraphController : MonoBehaviour
 {
@@ -9,27 +11,7 @@ public class DungeonGraphController : MonoBehaviour
     public DungeonGraph<RectInt> roomGraph;
     public DungeonGraph<RectInt> doorGraph;
 
-
-    [InfoBox("Graph", EInfoBoxType.Normal)]
-    [SerializeField]
-    [TextArea(10, 10)]
-    private string contents = "";
-
-    private void Awake()
-    {
-        // Receive debug.log callbacks
-        Application.logMessageReceived += logHandler;
-    }
-
-    private void logHandler(string info, string stackTrace, LogType type)
-    {
-        contents += info + Environment.NewLine;
-    }
-
-    private void OnApplicationQuit()
-    {
-        Application.logMessageReceived -= logHandler;
-    }
+    private RectInt checkedRoom;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,21 +36,21 @@ public class DungeonGraphController : MonoBehaviour
         {
             DebugExtension.DebugWireSphere(new Vector3(door.x + door.width / 2f, 0, door.y + door.height / 2f), Color.cyan);
         }
+        if (checkedRoom.width > 0) AlgorithmsUtils.DebugRectInt(checkedRoom, Color.white, 0, false, 3);
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private void GenerateGraph()
     {
-        contents = "";
         roomGraph = new();
-        foreach (RectInt room in dungeonGenerator.doneRooms)
-        {
-            roomGraph.AddNode(room);
-        }
-        foreach (RectInt door in dungeonGenerator.doors)
-        {
-            doorGraph.AddNode(door);
-        }
+        //foreach (RectInt room in dungeonGenerator.doneRooms)
+        //{
+        //    roomGraph.AddNode(room);
+        //}
+        //foreach (RectInt door in dungeonGenerator.doors)
+        //{
+        //    doorGraph.AddNode(door);
+        //}
         for (int i = 0; i < dungeonGenerator.doneRooms.Count; i++)
         {
             for (int j = 0; j < dungeonGenerator.doors.Count; j++)
@@ -79,14 +61,34 @@ public class DungeonGraphController : MonoBehaviour
                 }
             }
         }
+    }
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private IEnumerator CheckGraph()
+    {
+        RectInt firstroom = roomGraph.ReturnRooms()[0];
+        Queue<RectInt> queue = new();
+        queue.Enqueue(firstroom);
 
-        //foreach (RectInt roomNode in roomGraph.ReturnRooms())
-        //{
-        //    foreach (RectInt doorNode in doorGraph.ReturnRooms())
-        //    {
-        //        if (!AlgorithmsUtils.Intersects(roomNode, doorNode)) continue;
-
-        //    }
-        //}
+        HashSet<RectInt> visited = new HashSet<RectInt>();
+        visited.Add(firstroom);
+        while (queue.Count > 0)
+        {
+            RectInt currentRoom = queue.Dequeue();
+            checkedRoom = currentRoom;
+            Debug.Log(currentRoom);
+            if (dungeonGenerator.splitType != DungeonGenerator.SplitType.instant)
+            {
+                yield return dungeonGenerator.SplitWait();
+            }
+            foreach (RectInt neighbor in roomGraph.ReturnRoomAdjacents(currentRoom))
+            {
+                if (visited.Contains(neighbor)) continue;
+                queue.Enqueue(neighbor);
+                visited.Add(neighbor);
+            }
+        }
+        Debug.Log("There are " + roomGraph.ReturnRooms().Count + "Nodes");
+        Debug.Log(visited.Count + "Has been checked");
+        checkedRoom = new();
     }
 }

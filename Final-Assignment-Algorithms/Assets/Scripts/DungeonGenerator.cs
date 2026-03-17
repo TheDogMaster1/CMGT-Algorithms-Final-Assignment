@@ -47,8 +47,8 @@ public class DungeonGenerator : MonoBehaviour
         {
             AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0, false, 3);
         }
-        AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
-        AlgorithmsUtils.DebugRectInt(currenDoor, Color.cyan, 0, false, 3);
+        if (CurrentRoom.width > 0) AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
+        if (currenDoor.width > 0) AlgorithmsUtils.DebugRectInt(currenDoor, Color.cyan, 0, false, 3);
     }
 
 
@@ -185,7 +185,7 @@ public class DungeonGenerator : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator SplitWait()
+    public IEnumerator SplitWait()
     {
         switch (splitType)
         {

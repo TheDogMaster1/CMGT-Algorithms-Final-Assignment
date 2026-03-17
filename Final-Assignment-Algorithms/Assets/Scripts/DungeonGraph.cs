@@ -46,4 +46,9 @@ public class DungeonGraph<T>
     {
         return new List<T>(nodeList[node]);
     }
+
+    public int ReturnGraphLength()
+    {
+        return nodeList.Count;
+    }
 }
