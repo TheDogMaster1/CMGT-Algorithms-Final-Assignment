@@ -415,7 +415,7 @@ MonoBehaviour:
   minSplitPoint: 30
   overlapAmount: 1
   secondsToWait: 0
-  splitType: 1
+  splitType: 0
 --- !u!4 &2061578847
 Transform:
   m_ObjectHideFlags: 0
@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55383c7d3efd8c449ec0439845f6219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contents: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

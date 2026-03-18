@@ -43,10 +43,10 @@ public class DungeonGraphController : MonoBehaviour
     private void GenerateGraph()
     {
         roomGraph = new();
-        //foreach (RectInt room in dungeonGenerator.doneRooms)
-        //{
-        //    roomGraph.AddNode(room);
-        //}
+        foreach (RectInt room in dungeonGenerator.doneRooms)
+        {
+            roomGraph.AddNode(room);
+        }
         //foreach (RectInt door in dungeonGenerator.doors)
         //{
         //    doorGraph.AddNode(door);
@@ -90,5 +90,48 @@ public class DungeonGraphController : MonoBehaviour
         Debug.Log("There are " + roomGraph.ReturnRooms().Count + "Nodes");
         Debug.Log(visited.Count + "Has been checked");
         checkedRoom = new();
+    }
+
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private void RemoveRoom()
+    {
+        List<RectInt> test = dungeonGenerator.doneRooms;
+
+
+        //List<RectInt> savedNodes = new List<RectInt>();
+        RectInt testroom = test[0];
+
+        for (int i = 0; i < test.Count; i++)
+        {
+            if (test[i].width * test[i].height < testroom.width * testroom.height)
+            {
+                testroom = test[i];
+            }
+            else
+            {
+                continue;
+            }
+        }
+        //savedNodes.Add(roomGraph.ReturnRooms()[roomToDeleteNum]);
+        //foreach(RectInt door in roomGraph.ReturnRoomAdjacents())
+        //{
+
+        //}
+        //Debug.Log(test.Min<RectInt>());
+        foreach (RectInt room in test)
+        {
+            Debug.Log(room.height * room.width);
+        }
+
+        dungeonGenerator.doneRooms.Remove(testroom);
+        foreach (RectInt door in roomGraph.ReturnRoomAdjacents(testroom))
+        {
+            dungeonGenerator.doors.Remove(door);
+            roomGraph.RemoveNode(door);
+        }
+        roomGraph.RemoveNode(testroom);
+
+        Debug.Log("room: " + testroom + "Size: " + testroom.width * testroom.height);
+        //Debug.Log("chose " + roomToDelete);
     }
 }
