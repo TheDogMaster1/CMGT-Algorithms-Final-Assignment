@@ -256,6 +256,8 @@ MonoBehaviour:
   minSplitPoint: 0
   overlapAmount: 1
   secondsToWait: 0
+  seeded: 0
+  seed: 0
   splitType: 0
 --- !u!4 &699533257
 Transform:
@@ -405,16 +407,18 @@ MonoBehaviour:
   BaseRoom:
     x: 0
     y: 0
-    width: 300
-    height: 300
+    width: 150
+    height: 100
   maximumRoomSize:
     x: 0
     y: 0
-    width: 40
-    height: 40
-  minSplitPoint: 30
+    width: 30
+    height: 30
+  minSplitPoint: 15
   overlapAmount: 1
   secondsToWait: 0
+  seeded: 0
+  seed: 0
   splitType: 0
 --- !u!4 &2061578847
 Transform:

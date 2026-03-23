@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -19,12 +20,17 @@ public class DungeonGenerator : MonoBehaviour
     private int roomindex;
     public float secondsToWait;
 
+    [Header("Seed options")]
+    public bool seeded = false;
+    public int seed = 0;
+
     private DungeonGraphController graphController;
     public enum SplitType { instant, withDelay, withSpacebar }
 
+    [Space(20)]
     public SplitType splitType = SplitType.withDelay;
 
-
+    private Random random = new Random();
     private void Start()
     {
         graphController = GetComponent<DungeonGraphController>();
@@ -59,12 +65,21 @@ public class DungeonGenerator : MonoBehaviour
         doors.Clear();
         graphController.roomGraph.ClearGraph();
 
+        if (seeded == true)
+        {
+            random = new Random(seed);
+        }
+        else
+        {
+            random = new();
+        }
+
         toDoRooms.Add(BaseRoom);
         while (toDoRooms.Count > 0)
         {
             if (toDoRooms[roomindex].width > toDoRooms[roomindex].height)
             {
-                int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].width - minSplitPoint);
+                int splitPoint = random.Next(minSplitPoint, toDoRooms[roomindex].width - minSplitPoint);
                 //Debug.Log("SplitPoint is " + splitPoint);
                 RectInt newroom = toDoRooms[roomindex];
                 newroom.width = toDoRooms[roomindex].width - splitPoint + overlapAmount;
@@ -101,7 +116,7 @@ public class DungeonGenerator : MonoBehaviour
             }
             else
             {
-                int splitPoint = Random.Range(minSplitPoint, toDoRooms[roomindex].height - minSplitPoint);
+                int splitPoint = random.Next(minSplitPoint, toDoRooms[roomindex].height - minSplitPoint);
                 RectInt newroom = toDoRooms[roomindex];
                 newroom.height = toDoRooms[roomindex].height - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
