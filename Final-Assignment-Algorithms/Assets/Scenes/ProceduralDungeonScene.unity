@@ -405,8 +405,8 @@ MonoBehaviour:
   BaseRoom:
     x: 0
     y: 0
-    width: 150
-    height: 100
+    width: 300
+    height: 300
   maximumRoomSize:
     x: 0
     y: 0

@@ -40,7 +40,6 @@ public class DungeonGenerator : MonoBehaviour
         {
             AlgorithmsUtils.DebugRectInt(doneRooms[i], Color.green, 0);
             AlgorithmsUtils.DebugRectInt(doneRooms[i], new Color(0.8f, 0, 1, 1), 0, false, 3);
-            RectInt test = doneRooms[i];
         }
 
         for (int i = 0; i < doors.Count; i++)
@@ -59,7 +58,6 @@ public class DungeonGenerator : MonoBehaviour
         doneRooms.Clear();
         doors.Clear();
         graphController.roomGraph.ClearGraph();
-        graphController.doorGraph.ClearGraph();
 
         toDoRooms.Add(BaseRoom);
         while (toDoRooms.Count > 0)
@@ -194,6 +192,7 @@ public class DungeonGenerator : MonoBehaviour
                 break;
             case SplitType.withSpacebar:
                 yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+                yield return null;
                 break;
         }
     }
