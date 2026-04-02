@@ -416,10 +416,10 @@ MonoBehaviour:
     height: 30
   minSplitPoint: 15
   overlapAmount: 1
-  secondsToWait: 0
+  secondsToWait: 0.1
   seeded: 0
-  seed: 0
-  splitType: 0
+  seed: 1
+  splitType: 1
 --- !u!4 &2061578847
 Transform:
   m_ObjectHideFlags: 0
@@ -447,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55383c7d3efd8c449ec0439845f6219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deletePercent: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

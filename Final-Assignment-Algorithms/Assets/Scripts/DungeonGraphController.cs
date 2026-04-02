@@ -15,6 +15,9 @@ public class DungeonGraphController : MonoBehaviour
     private HashSet<RectInt> visited = new();
 
     private bool canRemove = true;
+
+    [Range(0, 100)]
+    public float deletePercent = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,10 +30,10 @@ public class DungeonGraphController : MonoBehaviour
     {
         foreach (RectInt room in roomGraph.ReturnRooms())
         {
-            DebugExtension.DebugWireSphere(new Vector3(room.x + room.width / 2f, 0, room.y + room.height / 2f), Color.cyan);
+            DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
             foreach (RectInt door in roomGraph.ReturnRoomAdjacents(room))
             {
-                Debug.DrawLine(new Vector3(room.x + room.width / 2f, 0, room.y + room.height / 2f), new Vector3(door.x + door.width / 2f, 0, door.y + door.height / 2f), Color.yellow);
+                Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
             }
         }
         if (checkedRoom.width > 0) AlgorithmsUtils.DebugRectInt(checkedRoom, Color.white, 0, false, 3);
@@ -99,8 +102,9 @@ public class DungeonGraphController : MonoBehaviour
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveRoom()
     {
-        int deleteAmount = dungeonGenerator.doneRooms.Count - Mathf.FloorToInt(dungeonGenerator.doneRooms.Count / 10);
+        int deleteAmount = dungeonGenerator.doneRooms.Count - Mathf.FloorToInt(dungeonGenerator.doneRooms.Count * (deletePercent / 100));
         int initialRoomCount = dungeonGenerator.doneRooms.Count;
+        canRemove = true;
 
         while (canRemove == true && dungeonGenerator.doneRooms.Count > deleteAmount)
         {
