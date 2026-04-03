@@ -181,7 +181,7 @@ public class DungeonGraphController : MonoBehaviour
             RectInt currentRoom = stack.Pop();
             checkedRoom = currentRoom;
             //Debug.Log(currentRoom);
-            if (dungeonGenerator.doors.Contains(currentRoom) && visited.Contains(roomGraph.ReturnRoomAdjacents(currentRoom)[0]) && visited.Contains(roomGraph.ReturnRoomAdjacents(currentRoom)[1]))
+            if ((currentRoom.width == 1 || currentRoom.height == 1) && visited.Contains(roomGraph.ReturnRoomAdjacents(currentRoom)[0]) && visited.Contains(roomGraph.ReturnRoomAdjacents(currentRoom)[1]))
             {
                 dungeonGenerator.doors.Remove(currentRoom);
                 roomGraph.RemoveNode(currentRoom);
