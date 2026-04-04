@@ -12,7 +12,7 @@ public class DungeonGenerator : MonoBehaviour
     public RectInt BaseRoom;
     public RectInt maximumRoomSize;
     private RectInt CurrentRoom;
-    private RectInt currenDoor;
+    private RectInt currentDoor;
 
     public int minSplitPoint;
     public int overlapAmount = 1;
@@ -53,7 +53,7 @@ public class DungeonGenerator : MonoBehaviour
             AlgorithmsUtils.DebugRectInt(doors[i], Color.blue, 0, false, 3);
         }
         if (CurrentRoom.width > 0) AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
-        if (currenDoor.width > 0) AlgorithmsUtils.DebugRectInt(currenDoor, Color.cyan, 0, false, 3);
+        if (currentDoor.width > 0) AlgorithmsUtils.DebugRectInt(currentDoor, Color.cyan, 0, false, 3);
     }
 
 
@@ -176,7 +176,7 @@ public class DungeonGenerator : MonoBehaviour
                             door.y += door.height / 2 - 1;
                             door.height = 3;
                         }
-                        currenDoor = door;
+                        currentDoor = door;
                         doors.Add(door);
                     }
                     if (splitType != SplitType.instant)
@@ -186,7 +186,7 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
-        currenDoor = RectInt.zero;
+        currentDoor = RectInt.zero;
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]

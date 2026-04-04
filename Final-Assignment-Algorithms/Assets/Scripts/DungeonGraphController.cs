@@ -129,10 +129,10 @@ public class DungeonGraphController : MonoBehaviour
             }
 
             visited.Add(roomToDelete);
-            foreach (RectInt door in roomGraph.ReturnRoomAdjacents(roomToDelete))
-            {
-                visited.Add(door);
-            }
+            //foreach (RectInt door in roomGraph.ReturnRoomAdjacents(roomToDelete))
+            //{
+            //    visited.Add(door);
+            //}
 
             yield return StartCoroutine(CheckGraph());
 

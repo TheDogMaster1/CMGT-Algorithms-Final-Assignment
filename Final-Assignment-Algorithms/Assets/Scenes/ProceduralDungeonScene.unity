@@ -416,7 +416,7 @@ MonoBehaviour:
     height: 30
   minSplitPoint: 15
   overlapAmount: 1
-  secondsToWait: 0
+  secondsToWait: 0.1
   seeded: 0
   seed: 1
   splitType: 0
