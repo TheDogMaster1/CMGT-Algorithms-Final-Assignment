@@ -419,7 +419,7 @@ MonoBehaviour:
   secondsToWait: 0.1
   seeded: 0
   seed: 1
-  splitType: 0
+  splitType: 2
 --- !u!4 &2061578847
 Transform:
   m_ObjectHideFlags: 0
