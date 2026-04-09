@@ -7,6 +7,7 @@ using UnityEngine;
 public class DungeonGraphController : MonoBehaviour
 {
     private DungeonGenerator dungeonGenerator;
+    private DungeonAddAssets dungeonAddAssets;
 
     public DungeonGraph<RectInt> roomGraph;
 
@@ -22,6 +23,7 @@ public class DungeonGraphController : MonoBehaviour
     void Start()
     {
         dungeonGenerator = GetComponent<DungeonGenerator>();
+        dungeonAddAssets = GetComponent<DungeonAddAssets>();
         roomGraph = new();
     }
 
@@ -107,6 +109,7 @@ public class DungeonGraphController : MonoBehaviour
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveRoom()
     {
+        dungeonAddAssets.DestroyAssets();
         int deleteAmount = dungeonGenerator.doneRooms.Count - Mathf.FloorToInt(dungeonGenerator.doneRooms.Count * (deletePercent / 100));
         int initialRoomCount = dungeonGenerator.doneRooms.Count;
         canRemove = true;
@@ -167,6 +170,7 @@ public class DungeonGraphController : MonoBehaviour
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveCycles()
     {
+        dungeonAddAssets.DestroyAssets();
         RectInt firstroom = roomGraph.ReturnRooms()[0];
         if (visited.Contains(firstroom))
         {

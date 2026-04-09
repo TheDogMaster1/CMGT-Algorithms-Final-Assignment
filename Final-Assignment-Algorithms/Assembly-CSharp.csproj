@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\DebugDrawingExtension\Example\Example.cs" />
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
+    <Compile Include="Assets\Scripts\MouseClickController.cs" />
     <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
     <Compile Include="Assets\Scripts\DungeonGraph.cs" />
     <Compile Include="Assets\Scripts\DungeonGraphController.cs" />
+    <Compile Include="Assets\Scripts\NavMeshBaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DebugDrawingExtension\readme.txt" />

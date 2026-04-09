@@ -99,4 +99,18 @@ public class DungeonAddAssets : MonoBehaviour
         Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
         wallPositions.Add(spawnPos);
     }
+
+    public void DestroyAssets()
+    {
+        foreach (Transform child in wallParent.transform)
+        {
+            if (child != null) Destroy(child.gameObject);
+        }
+        foreach (Transform child in floorParent.transform)
+        {
+            if (child != null) Destroy(child.gameObject);
+        }
+        wallPositions.Clear();
+        floorPositions.Clear();
+    }
 }

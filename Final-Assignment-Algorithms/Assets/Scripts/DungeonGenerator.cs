@@ -24,15 +24,18 @@ public class DungeonGenerator : MonoBehaviour
     public int seed = 0;
 
     private DungeonGraphController graphController;
+    private DungeonAddAssets dungeonAddAssets;
     public enum SplitType { instant, withDelay, withSpacebar }
 
     [Space(20)]
     public SplitType splitType = SplitType.withDelay;
 
     private Random random = new Random();
+
     private void Start()
     {
         graphController = GetComponent<DungeonGraphController>();
+        dungeonAddAssets = GetComponent<DungeonAddAssets>();
     }
     private void Update()
     {
@@ -160,6 +163,7 @@ public class DungeonGenerator : MonoBehaviour
         random = new();
         currentDoor = new();
         CurrentRoom = new();
+        dungeonAddAssets.DestroyAssets();
         StopAllCoroutines();
         StartCoroutine(Splitrooms());
     }
