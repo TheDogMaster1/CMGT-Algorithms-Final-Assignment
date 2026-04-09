@@ -149,7 +149,6 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         CurrentRoom = RectInt.zero;
-        yield return null;
     }
 
     private void ResetEverything()
@@ -201,12 +200,10 @@ public class DungeonGenerator : MonoBehaviour
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private IEnumerator GenerateDungeonWithDoors()
+    private void GenerateDungeonWithDoors()
     {
         ResetEverything();
-        yield return new WaitUntil(() => toDoRooms.Count == 0);
-        StartCoroutine(AddDoors());
-        yield return null;
+        if (toDoRooms.Count == 0) StartCoroutine(AddDoors());
     }
 
     public IEnumerator SplitWait()
