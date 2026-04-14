@@ -6,29 +6,43 @@ using Random = System.Random;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public List<RectInt> toDoRooms;
-    public List<RectInt> doneRooms;
-    public List<RectInt> doors;
-    public RectInt BaseRoom;
-    public RectInt maximumRoomSize;
+    [SerializeField]
+    private List<RectInt> toDoRooms;
+    [SerializeField]
+    private List<RectInt> doneRooms;
+    [SerializeField]
+    private List<RectInt> doors;
+    [SerializeField]
+    private RectInt BaseRoom;
+    [SerializeField]
+    private RectInt maximumRoomSize;
+
     private RectInt CurrentRoom;
     private RectInt currentDoor;
 
-    public int minSplitPoint;
-    public int overlapAmount = 1;
+    [SerializeField]
+    private int minSplitPoint;
 
-    public float secondsToWait;
+    [SerializeField]
+    private int overlapAmount = 1;
+
+    [SerializeField]
+    private float secondsToWait;
 
     [Header("Seed options")]
-    public bool seeded = false;
-    public int seed = 0;
+
+    [SerializeField]
+    private bool seeded = false;
+    [SerializeField]
+    private int seed = 0;
 
     private DungeonGraphController graphController;
     private DungeonAddAssets dungeonAddAssets;
     public enum SplitType { instant, withDelay, withSpacebar }
 
     [Space(20)]
-    public SplitType splitType = SplitType.withDelay;
+    [SerializeField]
+    private SplitType splitType = SplitType.withDelay;
 
     private Random random = new Random();
 
@@ -151,6 +165,7 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
+        StartCoroutine(AddDoors());
         CurrentRoom = RectInt.zero;
     }
 
@@ -159,7 +174,7 @@ public class DungeonGenerator : MonoBehaviour
         toDoRooms.Clear();
         doneRooms.Clear();
         doors.Clear();
-        graphController.roomGraph.ClearGraph();
+        graphController.GetRoomGraph().ClearGraph();
         random = new();
         currentDoor = new();
         CurrentRoom = new();
@@ -168,7 +183,6 @@ public class DungeonGenerator : MonoBehaviour
         StartCoroutine(Splitrooms());
     }
 
-    [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator AddDoors()
     {
         for (int i = 0; i < doneRooms.Count; i++)
@@ -207,7 +221,6 @@ public class DungeonGenerator : MonoBehaviour
     private void GenerateDungeonWithDoors()
     {
         ResetEverything();
-        if (toDoRooms.Count == 0) StartCoroutine(AddDoors());
     }
 
     public IEnumerator SplitWait()
@@ -222,5 +235,25 @@ public class DungeonGenerator : MonoBehaviour
                 yield return null;
                 break;
         }
+    }
+
+    public List<RectInt> GetDoneRooms()
+    {
+        return doneRooms;
+    }
+
+    public List<RectInt> GetDoors()
+    {
+        return doors;
+    }
+
+    public SplitType GetSplitType()
+    {
+        return splitType;
+    }
+
+    public RectInt GetDungeonBounds()
+    {
+        return BaseRoom;
     }
 }

@@ -10,11 +10,15 @@ public class DungeonAddAssets : MonoBehaviour
 
     private DungeonGenerator dGen;
 
-    public GameObject wallPrefab;
-    public Transform wallParent;
+    [SerializeField]
+    private GameObject wallPrefab;
+    [SerializeField]
+    private Transform wallParent;
 
-    public GameObject floorPrefab;
-    public Transform floorParent;
+    [SerializeField]
+    private GameObject floorPrefab;
+    [SerializeField]
+    private Transform floorParent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,7 +35,7 @@ public class DungeonAddAssets : MonoBehaviour
     private IEnumerator AddAssets()
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0.5f);
-        foreach (RectInt door in dGen.doors)
+        foreach (RectInt door in dGen.GetDoors())
         {
             if (door.width > door.height)
             {
@@ -49,55 +53,59 @@ public class DungeonAddAssets : MonoBehaviour
             }
         }
 
-        foreach (RectInt room in dGen.doneRooms)
+        foreach (RectInt room in dGen.GetDoneRooms())
         {
             for (int x = room.xMin; x < room.xMax; x++)
             {
-                AddWall(new Vector2Int(x, room.yMin), offset);
-                if (dGen.splitType != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
-
-                AddWall(new Vector2Int(x, room.yMax - 1), offset);
-                if (dGen.splitType != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+                StartCoroutine(AddWall(new Vector2Int(x, room.yMin), offset));
+                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                StartCoroutine(AddWall(new Vector2Int(x, room.yMax - 1), offset));
+                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
             }
             for (int y = room.yMin; y < room.yMax; y++)
             {
-                AddWall(new Vector2Int(room.xMin, y), offset);
-                if (dGen.splitType != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
-
-                AddWall(new Vector2Int(room.xMax - 1, y), offset);
-                if (dGen.splitType != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+                StartCoroutine(AddWall(new Vector2Int(room.xMin, y), offset));
+                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                StartCoroutine(AddWall(new Vector2Int(room.xMax - 1, y), offset));
+                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
             }
         }
 
-        foreach (RectInt room in dGen.doneRooms)
+        foreach (RectInt room in dGen.GetDoneRooms())
         {
             for (int i = room.xMin; i < room.xMax; i++)
             {
                 for (int j = room.yMin; j < room.yMax; j++)
                 {
-                    AddFloor(new Vector2Int(i, j), new Vector3(0.5f, 0, 0.5f));
-                    if (dGen.splitType != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+                    StartCoroutine(AddFloor(new Vector2Int(i, j), new Vector3(0.5f, 0, 0.5f)));
+                    if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
                 }
             }
         }
     }
 
-    private void AddFloor(Vector2Int pFloorPosition, Vector3 pOffset)
+    private IEnumerator AddFloor(Vector2Int pFloorPosition, Vector3 pOffset)
     {
         Vector3 spawnPos = new Vector3(pFloorPosition.x, 0, pFloorPosition.y) + pOffset;
 
-        if (floorPositions.Contains(spawnPos)) return;
-        Instantiate(floorPrefab, spawnPos, Quaternion.Euler(90, 0, 0), floorParent);
-        floorPositions.Add(spawnPos);
+        if (!floorPositions.Contains(spawnPos))
+        {
+            Instantiate(floorPrefab, spawnPos, Quaternion.Euler(90, 0, 0), floorParent);
+            floorPositions.Add(spawnPos);
+            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+        }
     }
 
-    private void AddWall(Vector2Int pWallPosition, Vector3 pOffset)
+    private IEnumerator AddWall(Vector2Int pWallPosition, Vector3 pOffset)
     {
         Vector3 spawnPos = new Vector3(pWallPosition.x, 0, pWallPosition.y) + pOffset;
 
-        if (wallPositions.Contains(spawnPos)) return;
-        Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
-        wallPositions.Add(spawnPos);
+        if (!wallPositions.Contains(spawnPos))
+        {
+            Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
+            wallPositions.Add(spawnPos);
+            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+        }
     }
 
     public void DestroyAssets()
