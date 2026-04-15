@@ -46,7 +46,20 @@ public class TileMapGenerator : MonoBehaviour
 
         foreach (RectInt door in dungeonGenerator.GetDoors())
         {
-            tileMap[door.y, door.x] = 0;
+            if (door.width > door.height)
+            {
+                for (int i = 0; i < door.width; i++)
+                {
+                    tileMap[door.y, door.x + i] = 0;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < door.height; i++)
+                {
+                    tileMap[door.y + i, door.x] = 0;
+                }
+            }
         }
 
         _tileMap = tileMap;

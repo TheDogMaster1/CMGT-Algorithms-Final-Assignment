@@ -7,7 +7,7 @@ public class NavMeshBaker : MonoBehaviour
     public NavMeshSurface navMeshSurface;
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private void BakeNavMesh()
+    public void BakeNavMesh()
     {
         navMeshSurface.BuildNavMesh();
     }

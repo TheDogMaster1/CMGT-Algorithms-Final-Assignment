@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
     <Compile Include="Assets\Scripts\DungeonAddAssets.cs" />
+    <Compile Include="Assets\Scripts\FloodfillSpawner.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
     <Compile Include="Assets\Scripts\DungeonGraph.cs" />
     <Compile Include="Assets\Scripts\DungeonGraphController.cs" />
