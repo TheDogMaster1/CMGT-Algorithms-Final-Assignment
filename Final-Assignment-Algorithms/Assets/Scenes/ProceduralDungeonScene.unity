@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 2061578851}
   - component: {fileID: 2061578853}
   - component: {fileID: 2061578850}
+  - component: {fileID: 2061578854}
   m_Layer: 0
   m_Name: --Dungeon Generator--
   m_TagString: Untagged
@@ -842,6 +843,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2061578854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061578845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fa863ea04dba3469f1ce0cf0c61299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draw: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

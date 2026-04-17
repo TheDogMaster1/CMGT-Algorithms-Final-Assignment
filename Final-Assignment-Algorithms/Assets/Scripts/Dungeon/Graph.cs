@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-public class DungeonGraph<T>
+public class Graph<T>
 {
     private Dictionary<T, List<T>> nodeList;
 
-    public DungeonGraph()
+    public Graph()
     {
         nodeList = new();
     }
@@ -24,7 +24,7 @@ public class DungeonGraph<T>
 
     public void RemoveNode(T node)
     {
-        foreach (T child in ReturnRoomAdjacents(node))
+        foreach (T child in ReturnNodeAdjacents(node))
         {
             RemoveEdge(node, child);
         }
@@ -52,12 +52,12 @@ public class DungeonGraph<T>
         nodeList[toNode].Remove(fromNode);
     }
 
-    public List<T> ReturnRooms()
+    public List<T> ReturnNodes()
     {
         return new List<T>(nodeList.Keys);
     }
 
-    public List<T> ReturnRoomAdjacents(T node)
+    public List<T> ReturnNodeAdjacents(T node)
     {
         return new List<T>(nodeList[node]);
     }

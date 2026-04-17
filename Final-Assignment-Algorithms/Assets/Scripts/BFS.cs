@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 public class BFS<T>
 {
-    public bool GraphSearch(DungeonGraph<T> graph, HashSet<T> visited)
+    public bool GraphSearch(Graph<T> graph, HashSet<T> visited)
     {
-        T firstroom = graph.ReturnRooms()[0];
+        T firstroom = graph.ReturnNodes()[0];
         if (visited.Contains(firstroom))
         {
-            firstroom = graph.ReturnRooms()[1];
+            firstroom = graph.ReturnNodes()[1];
         }
         Queue<T> queue = new();
         queue.Enqueue(firstroom);
@@ -17,7 +17,7 @@ public class BFS<T>
         {
             T currentRoom = queue.Dequeue();
             //Debug.Log(currentRoom);
-            foreach (T neighbor in graph.ReturnRoomAdjacents(currentRoom))
+            foreach (T neighbor in graph.ReturnNodeAdjacents(currentRoom))
             {
                 if (visited.Contains(neighbor)) continue;
                 queue.Enqueue(neighbor);

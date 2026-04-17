@@ -63,19 +63,20 @@
   <ItemGroup>
     <Compile Include="Assets\DebugDrawingExtension\Example\Example.cs" />
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
+    <Compile Include="Assets\Scripts\Player\MouseClickController.cs" />
     <Compile Include="Assets\Scripts\BFS.cs" />
-    <Compile Include="Assets\Scripts\MouseClickController.cs" />
-    <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\TileMapGenerator.cs" />
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
-    <Compile Include="Assets\Scripts\DungeonAddAssets.cs" />
-    <Compile Include="Assets\Scripts\FloodfillSpawner.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\TileGraphGenerator.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
-    <Compile Include="Assets\Scripts\DungeonGraph.cs" />
-    <Compile Include="Assets\Scripts\DungeonGraphController.cs" />
-    <Compile Include="Assets\Scripts\TileMapGenerator.cs" />
-    <Compile Include="Assets\Scripts\MarchingSquareSpawner.cs" />
-    <Compile Include="Assets\Scripts\NavMeshBaker.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\FloodfillSpawner.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\MarchingSquareSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DebugDrawingExtension\readme.txt" />

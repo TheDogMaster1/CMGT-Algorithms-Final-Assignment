@@ -185,7 +185,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private IEnumerator AddDoors()
     {
-        for (int i = 0; i < doneRooms.Count; i++)
+        for (int i = 0; i < doneRooms.Count; i++) //O(n^2)
         {
             for (int j = i + 1; j < doneRooms.Count; j++)
             {

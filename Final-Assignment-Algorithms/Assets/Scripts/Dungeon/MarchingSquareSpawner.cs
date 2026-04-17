@@ -45,7 +45,7 @@ public class MarchingSquareSpawner : MonoBehaviour
                 {
                     Instantiate(wallAssets[binaryCase], new Vector3(j + 1, 0, i + 1), Quaternion.identity, wallParent);
                 }
-                Debug.Log(binaryCase);
+                //Debug.Log(binaryCase);
                 if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
             }
         }
