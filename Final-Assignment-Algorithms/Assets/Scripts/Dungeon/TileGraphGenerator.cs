@@ -11,6 +11,9 @@ public class TileGraphGenerator : MonoBehaviour
     DungeonGenerator dGen;
     TileMapGenerator tileMapGenerator;
 
+    [SerializeField]
+    private GameObject player;
+
     int[,] _tileMap;
 
     [SerializeField]
@@ -39,10 +42,10 @@ public class TileGraphGenerator : MonoBehaviour
     private void Update()
     {
         if (!draw) return;
-        foreach (Vector3 tile in tileGraph.ReturnNodes())
+        foreach (Vector3 tile in tileGraph.ReturnNodesList())
         {
             DebugExtension.DebugPoint(tile, Color.cyan, 0.5f);
-            foreach (Vector3 tileNeighbor in tileGraph.ReturnNodeAdjacents(tile))
+            foreach (Vector3 tileNeighbor in tileGraph.ReturnAdjacents(tile))
             {
                 Debug.DrawLine(tile, tileNeighbor, Color.yellow);
             }
@@ -68,24 +71,20 @@ public class TileGraphGenerator : MonoBehaviour
         {
             Vector3 currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
-            //if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
             foreach (Vector3 neighbor in GetNeighbors(currentNode))
             {
+                if (_tileMap[(int)neighbor.z, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset))
+                {
+                    tileGraph.AddEdge(currentNode + offset, neighbor + offset);
+                }
                 if (visited.Contains(neighbor) || _tileMap[(int)neighbor.z, (int)neighbor.x] == 1) continue;
-                tileGraph.AddNode(neighbor + offset);
                 queue.Enqueue(neighbor);
                 visited.Add(neighbor);
             }
         }
-        foreach (Vector3 tile in tileGraph.ReturnNodes())
-        {
-            foreach (Vector3 neighbor in GetNeighbors(tile))
-            {
-                if (!tileGraph.ReturnNodes().Contains(neighbor) || tileGraph.ReturnNodeAdjacents(tile).Contains(neighbor)) continue;
-                tileGraph.AddEdge(tile, neighbor);
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
-            }
-        }
+
+        player.transform.position = new Vector3(dGen.GetDoneRooms()[0].center.x, 1, dGen.GetDoneRooms()[0].center.y);
     }
 
     private List<Vector3> GetNeighbors(Vector3 node)
@@ -96,5 +95,10 @@ public class TileGraphGenerator : MonoBehaviour
             neighbors.Add(node + dir);
         }
         return neighbors;
+    }
+
+    public Graph<Vector3> GetGraph()
+    {
+        return tileGraph;
     }
 }

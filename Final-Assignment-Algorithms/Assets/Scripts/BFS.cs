@@ -4,10 +4,10 @@ public class BFS<T>
 {
     public bool GraphSearch(Graph<T> graph, HashSet<T> visited)
     {
-        T firstroom = graph.ReturnNodes()[0];
+        T firstroom = graph.ReturnNodesList()[0];
         if (visited.Contains(firstroom))
         {
-            firstroom = graph.ReturnNodes()[1];
+            firstroom = graph.ReturnNodesList()[1];
         }
         Queue<T> queue = new();
         queue.Enqueue(firstroom);
@@ -17,7 +17,7 @@ public class BFS<T>
         {
             T currentRoom = queue.Dequeue();
             //Debug.Log(currentRoom);
-            foreach (T neighbor in graph.ReturnNodeAdjacents(currentRoom))
+            foreach (T neighbor in graph.ReturnAdjacents(currentRoom))
             {
                 if (visited.Contains(neighbor)) continue;
                 queue.Enqueue(neighbor);

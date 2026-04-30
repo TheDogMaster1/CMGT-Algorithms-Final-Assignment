@@ -24,7 +24,7 @@ public class Graph<T>
 
     public void RemoveNode(T node)
     {
-        foreach (T child in ReturnNodeAdjacents(node))
+        foreach (T child in ReturnAdjacents(node))
         {
             RemoveEdge(node, child);
         }
@@ -52,14 +52,24 @@ public class Graph<T>
         nodeList[toNode].Remove(fromNode);
     }
 
-    public List<T> ReturnNodes()
+    public List<T> ReturnNodesList()
     {
         return new List<T>(nodeList.Keys);
     }
 
-    public List<T> ReturnNodeAdjacents(T node)
+    public HashSet<T> ReturnNodesHashSet()
+    {
+        return new HashSet<T>(nodeList.Keys);
+    }
+
+    public List<T> ReturnAdjacents(T node)
     {
         return new List<T>(nodeList[node]);
+    }
+
+    public HashSet<T> ReturnAdjacentsHashSet(T node)
+    {
+        return new HashSet<T>(nodeList[node]);
     }
 
     public int ReturnGraphLength()
