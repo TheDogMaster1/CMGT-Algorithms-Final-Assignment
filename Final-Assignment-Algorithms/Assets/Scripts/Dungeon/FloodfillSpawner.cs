@@ -2,9 +2,8 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class FloodfillSpawner : MonoBehaviour
+public class FloodfillSpawner : DungeonSettings
 {
     [SerializeField]
     private GameObject floorPrefab;
@@ -30,9 +29,6 @@ public class FloodfillSpawner : MonoBehaviour
 
     private int[,] _tileMap;
 
-    [SerializeField]
-    private UnityEvent onFloorSpawned;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +36,10 @@ public class FloodfillSpawner : MonoBehaviour
         tileMapGenerator = GetComponent<TileMapGenerator>();
     }
 
+    public void StartSpawningFloors()
+    {
+        StartCoroutine(FloodfillAlgorithm());
+    }
 
     private List<Vector2Int> GetNeighbors(Vector2Int Node)
     {
@@ -66,7 +66,7 @@ public class FloodfillSpawner : MonoBehaviour
             Vector2Int currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
             Instantiate(floorPrefab, new Vector3(currentNode.x + 0.5f, 0, currentNode.y + 0.5f), Quaternion.identity, floorParent);
-            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+            if (splitType != SplitType.instant) yield return SplitWait();
             foreach (Vector2Int neighbor in GetNeighbors(currentNode))
             {
                 if (visited.Contains(neighbor) || _tileMap[neighbor.y, neighbor.x] == 1) continue;
@@ -74,7 +74,11 @@ public class FloodfillSpawner : MonoBehaviour
                 visited.Add(neighbor);
             }
         }
+        if (autoContinue) onScriptComplete?.Invoke();
+    }
 
-        onFloorSpawned?.Invoke();
+    public Transform GetFloorParent()
+    {
+        return floorParent;
     }
 }

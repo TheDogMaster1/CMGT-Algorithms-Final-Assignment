@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class DungeonGenerator : MonoBehaviour
+public class DungeonGenerator : DungeonSettings
 {
     [SerializeField]
     private List<RectInt> toDoRooms;
@@ -26,9 +26,6 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField]
     private int overlapAmount = 1;
 
-    [SerializeField]
-    private float secondsToWait;
-
     [Header("Seed options")]
 
     [SerializeField]
@@ -37,19 +34,20 @@ public class DungeonGenerator : MonoBehaviour
     private int seed = 0;
 
     private DungeonGraphController graphController;
-    private DungeonAddAssets dungeonAddAssets;
-    public enum SplitType { instant, withDelay, withSpacebar }
-
-    [Space(20)]
-    [SerializeField]
-    private SplitType splitType = SplitType.withDelay;
+    private TileMapGenerator tileMapGen;
+    private MarchingSquareSpawner marchingSquares;
+    private FloodfillSpawner floodFillFloors;
+    private TileGraphGenerator tileGraphGen;
 
     private Random random = new Random();
 
     private void Start()
     {
         graphController = GetComponent<DungeonGraphController>();
-        dungeonAddAssets = GetComponent<DungeonAddAssets>();
+        tileMapGen = GetComponent<TileMapGenerator>();
+        marchingSquares = GetComponent<MarchingSquareSpawner>();
+        floodFillFloors = GetComponent<FloodfillSpawner>();
+        tileGraphGen = GetComponent<TileGraphGenerator>();
     }
     private void Update()
     {
@@ -70,6 +68,28 @@ public class DungeonGenerator : MonoBehaviour
         }
         if (CurrentRoom.width > 0) AlgorithmsUtils.DebugRectInt(CurrentRoom, Color.cyan, 0);
         if (currentDoor.width > 0) AlgorithmsUtils.DebugRectInt(currentDoor, Color.cyan, 0, false, 3);
+    }
+
+    [Button(enabledMode: EButtonEnableMode.Playmode)]
+    private void GenerateDungeonWithDoors()
+    {
+        ResetEverything();
+    }
+
+    private void ResetEverything()
+    {
+        toDoRooms.Clear();
+        doneRooms.Clear();
+        doors.Clear();
+        graphController.GetRoomGraph().ClearGraph();
+        random = new();
+        currentDoor = new();
+        CurrentRoom = new();
+        tileMapGen.ResetTileMap();
+        DestroyAssets();
+        tileGraphGen.ResetGraph();
+        StopAllCoroutines();
+        StartCoroutine(Splitrooms());
     }
 
     private IEnumerator Splitrooms()
@@ -169,19 +189,6 @@ public class DungeonGenerator : MonoBehaviour
         CurrentRoom = RectInt.zero;
     }
 
-    private void ResetEverything()
-    {
-        toDoRooms.Clear();
-        doneRooms.Clear();
-        doors.Clear();
-        graphController.GetRoomGraph().ClearGraph();
-        random = new();
-        currentDoor = new();
-        CurrentRoom = new();
-        dungeonAddAssets.DestroyAssets();
-        StopAllCoroutines();
-        StartCoroutine(Splitrooms());
-    }
 
     private IEnumerator AddDoors()
     {
@@ -215,27 +222,9 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         currentDoor = RectInt.zero;
+        if (autoContinue) onScriptComplete?.Invoke();
     }
 
-    [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private void GenerateDungeonWithDoors()
-    {
-        ResetEverything();
-    }
-
-    public IEnumerator SplitWait()
-    {
-        switch (splitType)
-        {
-            case SplitType.withDelay:
-                yield return new WaitForSeconds(secondsToWait);
-                break;
-            case SplitType.withSpacebar:
-                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
-                yield return null;
-                break;
-        }
-    }
 
     public List<RectInt> GetDoneRooms()
     {
@@ -255,5 +244,17 @@ public class DungeonGenerator : MonoBehaviour
     public RectInt GetDungeonBounds()
     {
         return BaseRoom;
+    }
+
+    public void DestroyAssets()
+    {
+        foreach (Transform child in marchingSquares.GetWallParent())
+        {
+            if (child != null) Destroy(child.gameObject);
+        }
+        foreach (Transform child in floodFillFloors.GetFloorParent())
+        {
+            if (child != null) Destroy(child.gameObject);
+        }
     }
 }

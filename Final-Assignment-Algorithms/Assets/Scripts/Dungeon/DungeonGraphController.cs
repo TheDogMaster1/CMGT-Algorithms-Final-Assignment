@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DungeonGraphController : MonoBehaviour
+public class DungeonGraphController : DungeonSettings
 {
     private DungeonGenerator dungeonGenerator;
     private DungeonAddAssets dungeonAddAssets;
@@ -49,6 +49,11 @@ public class DungeonGraphController : MonoBehaviour
         }
     }
 
+    public void StartDungeonGraphGeneration()
+    {
+        StartCoroutine(GenerateGraph());
+    }
+
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator GenerateGraph()
     {
@@ -56,9 +61,9 @@ public class DungeonGraphController : MonoBehaviour
         foreach (RectInt room in dungeonGenerator.GetDoneRooms())
         {
             roomGraph.AddNode(room);
-            if (dungeonGenerator.GetSplitType() != DungeonGenerator.SplitType.instant)
+            if (splitType != SplitType.instant)
             {
-                yield return dungeonGenerator.SplitWait();
+                yield return SplitWait();
             }
         }
         for (int i = 0; i < dungeonGenerator.GetDoneRooms().Count; i++)
@@ -68,15 +73,15 @@ public class DungeonGraphController : MonoBehaviour
                 if (AlgorithmsUtils.Intersects(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]))
                 {
                     roomGraph.AddEdge(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]);
-                    if (dungeonGenerator.GetSplitType() != DungeonGenerator.SplitType.instant)
+                    if (splitType != SplitType.instant)
                     {
-                        yield return dungeonGenerator.SplitWait();
+                        yield return SplitWait();
                     }
                 }
             }
         }
+        if (autoContinue) StartCoroutine(RemoveRooms());
     }
-    //[Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator CheckGraph()
     {
         RectInt firstroom = roomGraph.ReturnNodesList()[0];
@@ -93,9 +98,9 @@ public class DungeonGraphController : MonoBehaviour
             RectInt currentRoom = queue.Dequeue();
             checkedRoom = currentRoom;
             //Debug.Log(currentRoom);
-            if (dungeonGenerator.GetSplitType() != DungeonGenerator.SplitType.instant)
+            if (splitType != SplitType.instant)
             {
-                yield return dungeonGenerator.SplitWait();
+                yield return SplitWait();
             }
             foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
             {
@@ -108,9 +113,8 @@ public class DungeonGraphController : MonoBehaviour
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
-    private IEnumerator RemoveRoom()
+    private IEnumerator RemoveRooms()
     {
-        dungeonAddAssets.DestroyAssets();
         int deleteAmount = dungeonGenerator.GetDoneRooms().Count - Mathf.FloorToInt(dungeonGenerator.GetDoneRooms().Count * (deletePercent / 100));
         int initialRoomCount = dungeonGenerator.GetDoneRooms().Count;
         canRemove = true;
@@ -149,9 +153,9 @@ public class DungeonGraphController : MonoBehaviour
                 roomGraph.RemoveNode(roomToDelete);
                 dungeonGenerator.GetDoneRooms().Remove(roomToDelete);
                 Debug.Log("deleted");
-                if (dungeonGenerator.GetSplitType() != DungeonGenerator.SplitType.instant)
+                if (splitType != SplitType.instant)
                 {
-                    yield return dungeonGenerator.SplitWait();
+                    yield return SplitWait();
                 }
             }
             else // keep room
@@ -167,13 +171,13 @@ public class DungeonGraphController : MonoBehaviour
         }
         Debug.Log("done deleting");
         Debug.Log("Deleted " + (initialRoomCount - dungeonGenerator.GetDoneRooms().Count) + " rooms");
+        if (autoContinue) StartCoroutine(RemoveCycles());
     }
 
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveCycles()
     {
-        dungeonAddAssets.DestroyAssets();
         RectInt firstroom = roomGraph.ReturnNodesList()[0];
         if (visited.Contains(firstroom))
         {
@@ -194,9 +198,9 @@ public class DungeonGraphController : MonoBehaviour
                 roomGraph.RemoveNode(currentRoom);
                 continue;
             }
-            if (dungeonGenerator.GetSplitType() != DungeonGenerator.SplitType.instant)
+            if (splitType != SplitType.instant)
             {
-                yield return dungeonGenerator.SplitWait();
+                yield return SplitWait();
             }
             foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
             {
@@ -209,6 +213,7 @@ public class DungeonGraphController : MonoBehaviour
         //Debug.Log("There are " + roomGraph.ReturnRooms().Count + "Nodes");
         //Debug.Log(visited.Count + "Has been checked");
         checkedRoom = new();
+        if (autoContinue) onScriptComplete?.Invoke();
     }
 
     public Graph<RectInt> GetRoomGraph()

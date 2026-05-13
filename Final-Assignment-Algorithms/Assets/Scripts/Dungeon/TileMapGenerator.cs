@@ -8,6 +8,9 @@ public class TileMapGenerator : MonoBehaviour
     [SerializeField]
     private UnityEvent onTileMapGenerated;
 
+    [SerializeField]
+    private bool autoContinue = false;
+
     private DungeonGenerator dungeonGenerator;
 
     private int[,] _tileMap;
@@ -23,12 +26,6 @@ public class TileMapGenerator : MonoBehaviour
         int[,] tileMap = new int[dungeonGenerator.GetDungeonBounds().height, dungeonGenerator.GetDungeonBounds().width];
         int rows = tileMap.GetLength(0);
         int cols = tileMap.GetLength(1);
-
-        //Fill the map with empty spaces
-
-        //Draw the rooms
-
-        //Draw the doors
 
         foreach (RectInt room in dungeonGenerator.GetDoneRooms())
         {
@@ -63,8 +60,9 @@ public class TileMapGenerator : MonoBehaviour
         }
 
         _tileMap = tileMap;
+        Debug.Log("Tilemap generated");
 
-        onTileMapGenerated.Invoke();
+        if (autoContinue) onTileMapGenerated?.Invoke();
     }
 
     public string ToString(bool flip)
@@ -95,6 +93,11 @@ public class TileMapGenerator : MonoBehaviour
     public int[,] GetTileMap()
     {
         return _tileMap.Clone() as int[,];
+    }
+
+    public void ResetTileMap()
+    {
+        _tileMap = null;
     }
 
     [Button]

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileGraphGenerator : MonoBehaviour
+public class TileGraphGenerator : DungeonSettings
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     Graph<Vector3> tileGraph;
@@ -52,6 +52,11 @@ public class TileGraphGenerator : MonoBehaviour
         }
     }
 
+    public void StartTileGraphGen()
+    {
+        StartCoroutine(GenerateGraph());
+    }
+
     [Button]
     private IEnumerator GenerateGraph()
     {
@@ -71,7 +76,7 @@ public class TileGraphGenerator : MonoBehaviour
         {
             Vector3 currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
-            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+            if (splitType != SplitType.instant) yield return SplitWait();
             foreach (Vector3 neighbor in GetNeighbors(currentNode))
             {
                 if (_tileMap[(int)neighbor.z, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset))
@@ -100,5 +105,10 @@ public class TileGraphGenerator : MonoBehaviour
     public Graph<Vector3> GetGraph()
     {
         return tileGraph;
+    }
+
+    public void ResetGraph()
+    {
+        tileGraph.ClearGraph();
     }
 }

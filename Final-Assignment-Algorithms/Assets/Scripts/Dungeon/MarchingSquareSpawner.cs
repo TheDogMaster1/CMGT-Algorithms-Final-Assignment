@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 
-public class MarchingSquareSpawner : MonoBehaviour
+public class MarchingSquareSpawner : DungeonSettings
 {
     private DungeonGenerator dGen;
     private TileMapGenerator tileMapGenerator;
@@ -27,6 +27,11 @@ public class MarchingSquareSpawner : MonoBehaviour
         if (marchingSquare != RectInt.zero) AlgorithmsUtils.DebugRectInt(marchingSquare, Color.yellow);
     }
 
+    public void StartSpawningWalls()
+    {
+        StartCoroutine(SpawnAssets());
+    }
+
     [Button]
     private IEnumerator SpawnAssets()
     {
@@ -46,15 +51,15 @@ public class MarchingSquareSpawner : MonoBehaviour
                     Instantiate(wallAssets[binaryCase], new Vector3(j + 1, 0, i + 1), Quaternion.identity, wallParent);
                 }
                 //Debug.Log(binaryCase);
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+                if (splitType != SplitType.instant) yield return SplitWait();
             }
         }
         marchingSquare = RectInt.zero;
+        if (autoContinue) onScriptComplete?.Invoke();
     }
 
-    public void StartSpawningWalls()
+    public Transform GetWallParent()
     {
-        StartCoroutine(SpawnAssets());
+        return wallParent;
     }
-
 }

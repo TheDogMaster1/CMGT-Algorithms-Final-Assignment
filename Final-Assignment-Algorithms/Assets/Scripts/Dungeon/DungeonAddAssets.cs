@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DungeonAddAssets : MonoBehaviour
+public class DungeonAddAssets : DungeonSettings
 {
     private HashSet<Vector3> wallPositions = new();
     private HashSet<Vector3> floorPositions = new();
@@ -58,16 +58,16 @@ public class DungeonAddAssets : MonoBehaviour
             for (int x = room.xMin; x < room.xMax; x++)
             {
                 StartCoroutine(AddWall(new Vector2Int(x, room.yMin), offset));
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                if (splitType != SplitType.instant) yield return null;
                 StartCoroutine(AddWall(new Vector2Int(x, room.yMax - 1), offset));
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                if (splitType != SplitType.instant) yield return null;
             }
             for (int y = room.yMin; y < room.yMax; y++)
             {
                 StartCoroutine(AddWall(new Vector2Int(room.xMin, y), offset));
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                if (splitType != SplitType.instant) yield return null;
                 StartCoroutine(AddWall(new Vector2Int(room.xMax - 1, y), offset));
-                if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                if (splitType != SplitType.instant) yield return null;
             }
         }
 
@@ -78,7 +78,7 @@ public class DungeonAddAssets : MonoBehaviour
                 for (int j = room.yMin; j < room.yMax; j++)
                 {
                     StartCoroutine(AddFloor(new Vector2Int(i, j), new Vector3(0.5f, 0, 0.5f)));
-                    if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return null;
+                    if (splitType != SplitType.instant) yield return null;
                 }
             }
         }
@@ -92,7 +92,7 @@ public class DungeonAddAssets : MonoBehaviour
         {
             Instantiate(floorPrefab, spawnPos, Quaternion.Euler(90, 0, 0), floorParent);
             floorPositions.Add(spawnPos);
-            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+            if (splitType != SplitType.instant) yield return SplitWait();
         }
     }
 
@@ -104,7 +104,7 @@ public class DungeonAddAssets : MonoBehaviour
         {
             Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
             wallPositions.Add(spawnPos);
-            if (dGen.GetSplitType() != DungeonGenerator.SplitType.instant) yield return dGen.SplitWait();
+            if (splitType != SplitType.instant) yield return SplitWait();
         }
     }
 
