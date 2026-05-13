@@ -133,7 +133,7 @@ public class PathFinder : MonoBehaviour
         return new List<Vector3>(); // No path found
     }
 
-    public List<Vector3> Dijkstra(Vector3 start, Vector3 end)
+    List<Vector3> Dijkstra(Vector3 start, Vector3 end)
     {
         //Use this "discovered" list to see the nodes in the visual debugging used on OnDrawGizmos()
         discovered.Clear();

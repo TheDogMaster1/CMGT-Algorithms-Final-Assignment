@@ -900,8 +900,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  autoContinue: 1
-  splitType: 1
+  autoContinue: 0
+  splitType: 0
   secondsToWait: 0
   deletePercent: 10
 --- !u!114 &2061578851
@@ -1031,7 +1031,8 @@ MonoBehaviour:
   splitType: 0
   secondsToWait: 0
   player: {fileID: 1639038945}
-  draw: 1
+  draw: 0
+  fourDirections: 0
 --- !u!114 &2061578855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
-  algorithm: 2
+  algorithm: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

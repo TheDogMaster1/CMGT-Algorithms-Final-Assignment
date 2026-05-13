@@ -179,10 +179,6 @@ public class DungeonGraphController : DungeonSettings
     private IEnumerator RemoveCycles()
     {
         RectInt firstroom = roomGraph.ReturnNodesList()[0];
-        if (visited.Contains(firstroom))
-        {
-            firstroom = roomGraph.ReturnNodesList()[1];
-        }
         Stack<RectInt> stack = new();
         stack.Push(firstroom);
 

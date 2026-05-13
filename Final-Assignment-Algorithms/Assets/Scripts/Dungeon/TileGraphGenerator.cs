@@ -19,7 +19,10 @@ public class TileGraphGenerator : DungeonSettings
     [SerializeField]
     private bool draw;
 
-    private Vector3[] dirs =
+    [SerializeField]
+    private bool fourDirections = false;
+
+    private Vector3[] dirs8 =
     {
         new (1, 0, 0),
         new(1, 0, -1),
@@ -30,6 +33,14 @@ public class TileGraphGenerator : DungeonSettings
         new (0, 0, 1),
         new(1, 0, 1),
 
+    };
+
+    private Vector3[] dirs4 =
+    {
+        new(1, 0, 0),
+        new(0, 0, -1),
+        new(-1, 0, 0),
+        new(0, 0, 1),
     };
 
     private void Start()
@@ -95,9 +106,19 @@ public class TileGraphGenerator : DungeonSettings
     private List<Vector3> GetNeighbors(Vector3 node)
     {
         List<Vector3> neighbors = new();
-        foreach (Vector3 dir in dirs)
+        if (!fourDirections)
         {
-            neighbors.Add(node + dir);
+            foreach (Vector3 dir in dirs8)
+            {
+                neighbors.Add(node + dir);
+            }
+        }
+        else
+        {
+            foreach (Vector3 dir in dirs4)
+            {
+                neighbors.Add(node + dir);
+            }
         }
         return neighbors;
     }
