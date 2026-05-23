@@ -25,10 +25,9 @@ public class DungeonAddAssets : DungeonSettings
         dGen = GetComponent<DungeonGenerator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AssetAdder()
     {
-
+        StartCoroutine(AddAssets());
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -82,6 +81,8 @@ public class DungeonAddAssets : DungeonSettings
                 }
             }
         }
+        if (splitType != SplitType.instant) yield return null;
+        if (autoContinue) onScriptComplete?.Invoke();
     }
 
     private IEnumerator AddFloor(Vector2Int pFloorPosition, Vector3 pOffset)

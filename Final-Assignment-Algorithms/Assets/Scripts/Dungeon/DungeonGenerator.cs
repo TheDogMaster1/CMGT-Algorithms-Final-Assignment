@@ -38,6 +38,7 @@ public class DungeonGenerator : DungeonSettings
     private MarchingSquareSpawner marchingSquares;
     private FloodfillSpawner floodFillFloors;
     private TileGraphGenerator tileGraphGen;
+    private DungeonAddAssets simpleAssets;
 
     private Random random = new Random();
 
@@ -48,6 +49,7 @@ public class DungeonGenerator : DungeonSettings
         marchingSquares = GetComponent<MarchingSquareSpawner>();
         floodFillFloors = GetComponent<FloodfillSpawner>();
         tileGraphGen = GetComponent<TileGraphGenerator>();
+        simpleAssets = GetComponent<DungeonAddAssets>();
     }
     private void Update()
     {
@@ -85,9 +87,16 @@ public class DungeonGenerator : DungeonSettings
         random = new();
         currentDoor = new();
         CurrentRoom = new();
-        tileMapGen.ResetTileMap();
-        DestroyAssets();
-        tileGraphGen.ResetGraph();
+        if (tileMapGen != null)
+        {
+            tileMapGen.ResetTileMap();
+            DestroyAssets();
+            tileGraphGen.ResetGraph();
+        }
+        if (simpleAssets != null)
+        {
+            simpleAssets.DestroyAssets();
+        }
         StopAllCoroutines();
         StartCoroutine(Splitrooms());
     }
