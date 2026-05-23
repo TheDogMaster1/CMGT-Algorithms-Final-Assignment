@@ -19,6 +19,9 @@ public class DungeonAddAssets : DungeonSettings
     private GameObject floorPrefab;
     [SerializeField]
     private Transform floorParent;
+
+    [SerializeField]
+    private GameObject player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,6 +85,7 @@ public class DungeonAddAssets : DungeonSettings
             }
         }
         if (splitType != SplitType.instant) yield return null;
+        player.transform.position = new Vector3(dGen.GetDoneRooms()[0].center.x, 1, dGen.GetDoneRooms()[0].center.y);
         if (autoContinue) onScriptComplete?.Invoke();
     }
 
