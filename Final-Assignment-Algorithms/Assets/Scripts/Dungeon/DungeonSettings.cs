@@ -20,7 +20,7 @@ public class DungeonSettings : MonoBehaviour
     protected float secondsToWait;
 
 
-    protected IEnumerator SplitWait()
+    protected IEnumerator Wait()
     {
         switch (splitType)
         {

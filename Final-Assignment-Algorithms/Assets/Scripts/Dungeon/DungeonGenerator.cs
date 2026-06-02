@@ -117,7 +117,7 @@ public class DungeonGenerator : DungeonSettings
         {
             if (splitType != SplitType.instant)
             {
-                yield return SplitWait();
+                yield return Wait();
             }
             if (toDoRooms[0].width > toDoRooms[0].height)
             {
@@ -130,7 +130,7 @@ public class DungeonGenerator : DungeonSettings
                 CheckRoomSize(newroom);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
 
                 newroom.width = toDoRooms[0].width - (toDoRooms[0].width - splitPoint);
@@ -140,7 +140,7 @@ public class DungeonGenerator : DungeonSettings
                 toDoRooms.Remove(toDoRooms[0]);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
             }
             else
@@ -152,7 +152,7 @@ public class DungeonGenerator : DungeonSettings
                 CheckRoomSize(newroom);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
 
                 newroom.height = toDoRooms[0].height - (toDoRooms[0].height - splitPoint);
@@ -162,7 +162,7 @@ public class DungeonGenerator : DungeonSettings
                 toDoRooms.Remove(toDoRooms[0]);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
             }
         }
@@ -208,7 +208,7 @@ public class DungeonGenerator : DungeonSettings
                 doors.Add(door);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
             }
         }

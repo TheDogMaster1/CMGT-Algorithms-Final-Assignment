@@ -63,7 +63,7 @@ public class DungeonGraphController : DungeonSettings
             roomGraph.AddNode(room);
             if (splitType != SplitType.instant)
             {
-                yield return SplitWait();
+                yield return Wait();
             }
         }
         for (int i = 0; i < dungeonGenerator.GetDoneRooms().Count; i++)
@@ -75,7 +75,7 @@ public class DungeonGraphController : DungeonSettings
                     roomGraph.AddEdge(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]);
                     if (splitType != SplitType.instant)
                     {
-                        yield return SplitWait();
+                        yield return Wait();
                     }
                 }
             }
@@ -100,7 +100,7 @@ public class DungeonGraphController : DungeonSettings
             //Debug.Log(currentRoom);
             if (splitType != SplitType.instant)
             {
-                yield return SplitWait();
+                yield return Wait();
             }
             foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
             {
@@ -121,41 +121,18 @@ public class DungeonGraphController : DungeonSettings
 
         while (canRemove == true && dungeonGenerator.GetDoneRooms().Count > deleteAmount)
         {
-            RectInt roomToDelete = dungeonGenerator.GetDoneRooms()[0];
-
-            //get the smallest room
-            for (int i = 0; i < dungeonGenerator.GetDoneRooms().Count; i++)
-            {
-                if (dungeonGenerator.GetDoneRooms()[i].width * dungeonGenerator.GetDoneRooms()[i].height < roomToDelete.width * roomToDelete.height)
-                {
-                    roomToDelete = dungeonGenerator.GetDoneRooms()[i];
-                }
-                else
-                {
-                    continue;
-                }
-            }
+            RectInt roomToDelete = GetSmallestRoom(dungeonGenerator.GetDoneRooms()[0]);
 
             visited.Add(roomToDelete);
-
-            //yield return StartCoroutine(CheckGraph());
 
             var deletable = bfs.GraphSearch(roomGraph, visited);
 
             if (deletable) //delete room
             {
-                Debug.Log(visited.Count + " " + roomGraph.ReturnGraphLength());
-                foreach (RectInt door in roomGraph.ReturnAdjacents(roomToDelete))
-                {
-                    dungeonGenerator.GetDoors().Remove(door);
-                    roomGraph.RemoveNode(door);
-                }
-                roomGraph.RemoveNode(roomToDelete);
-                dungeonGenerator.GetDoneRooms().Remove(roomToDelete);
-                Debug.Log("deleted");
+                DeleteRoom(roomToDelete);
                 if (splitType != SplitType.instant)
                 {
-                    yield return SplitWait();
+                    yield return Wait();
                 }
             }
             else // keep room
@@ -174,11 +151,56 @@ public class DungeonGraphController : DungeonSettings
         if (autoContinue) StartCoroutine(RemoveCycles());
     }
 
+    private RectInt GetSmallestRoom(RectInt room)
+    {
+        for (int i = 0; i < dungeonGenerator.GetDoneRooms().Count; i++)
+        {
+            if (dungeonGenerator.GetDoneRooms()[i].width * dungeonGenerator.GetDoneRooms()[i].height < room.width * room.height)
+            {
+                room = dungeonGenerator.GetDoneRooms()[i];
+            }
+            else
+            {
+                continue;
+            }
+        }
+        return room;
+    }
+
+    private void DeleteRoom(RectInt room)
+    {
+        Debug.Log(visited.Count + " " + roomGraph.ReturnGraphLength());
+        foreach (RectInt door in roomGraph.ReturnAdjacents(room))
+        {
+            dungeonGenerator.GetDoors().Remove(door);
+            roomGraph.RemoveNode(door);
+        }
+        roomGraph.RemoveNode(room);
+        dungeonGenerator.GetDoneRooms().Remove(room);
+        Debug.Log("deleted");
+
+    }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveCycles()
     {
+        Graph<RectInt> dfsGraph = DFSGraphMaker();
+
+        foreach (RectInt node in dfsGraph.ReturnNodesList())
+        {
+            if (dungeonGenerator.GetDoors().Contains(node) && dfsGraph.ReturnAdjacents(node).Count == 1)
+            {
+                dungeonGenerator.GetDoors().Remove(node);
+                roomGraph.RemoveNode(node);
+                if (splitType != SplitType.instant) yield return Wait();
+            }
+        }
+        if (autoContinue) onScriptComplete?.Invoke();
+    }
+    private Graph<RectInt> DFSGraphMaker()
+    {
         RectInt firstroom = roomGraph.ReturnNodesList()[0];
+        Graph<RectInt> dfsGraph = new();
         Stack<RectInt> stack = new();
         stack.Push(firstroom);
 
@@ -187,29 +209,17 @@ public class DungeonGraphController : DungeonSettings
         {
             RectInt currentRoom = stack.Pop();
             checkedRoom = currentRoom;
-            //Debug.Log(currentRoom);
-            if ((currentRoom.width == 1 || currentRoom.height == 1) && visited.Contains(roomGraph.ReturnAdjacents(currentRoom)[0]) && visited.Contains(roomGraph.ReturnAdjacents(currentRoom)[1]))
-            {
-                dungeonGenerator.GetDoors().Remove(currentRoom);
-                roomGraph.RemoveNode(currentRoom);
-                continue;
-            }
-            if (splitType != SplitType.instant)
-            {
-                yield return SplitWait();
-            }
             foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
             {
                 if (visited.Contains(neighbor)) continue;
                 stack.Push(neighbor);
                 visited.Add(neighbor);
+                dfsGraph.AddEdge(currentRoom, neighbor);
             }
         }
         visited.Clear();
-        //Debug.Log("There are " + roomGraph.ReturnRooms().Count + "Nodes");
-        //Debug.Log(visited.Count + "Has been checked");
         checkedRoom = new();
-        if (autoContinue) onScriptComplete?.Invoke();
+        return dfsGraph;
     }
 
     public Graph<RectInt> GetRoomGraph()

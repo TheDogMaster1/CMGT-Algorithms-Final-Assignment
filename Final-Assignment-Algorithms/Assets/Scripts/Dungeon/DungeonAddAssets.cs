@@ -97,7 +97,7 @@ public class DungeonAddAssets : DungeonSettings
         {
             Instantiate(floorPrefab, spawnPos, Quaternion.Euler(90, 0, 0), floorParent);
             floorPositions.Add(spawnPos);
-            if (splitType != SplitType.instant) yield return SplitWait();
+            if (splitType != SplitType.instant) yield return Wait();
         }
     }
 
@@ -109,7 +109,7 @@ public class DungeonAddAssets : DungeonSettings
         {
             Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
             wallPositions.Add(spawnPos);
-            if (splitType != SplitType.instant) yield return SplitWait();
+            if (splitType != SplitType.instant) yield return Wait();
         }
     }
 
