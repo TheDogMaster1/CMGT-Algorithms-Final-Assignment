@@ -127,14 +127,7 @@ public class DungeonGenerator : DungeonSettings
                 RectInt newroom = toDoRooms[0];
                 newroom.width = toDoRooms[0].width - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
-                if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
-                {
-                    doneRooms.Add(newroom);
-                }
-                else
-                {
-                    toDoRooms.Add(newroom);
-                }
+                CheckRoomSize(newroom);
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
@@ -143,14 +136,7 @@ public class DungeonGenerator : DungeonSettings
                 newroom.width = toDoRooms[0].width - (toDoRooms[0].width - splitPoint);
                 newroom.x = toDoRooms[0].x + (toDoRooms[0].width - splitPoint);
                 CurrentRoom = newroom;
-                if (newroom.width <= maximumRoomSize.width && newroom.height <= maximumRoomSize.height)
-                {
-                    doneRooms.Add(newroom);
-                }
-                else
-                {
-                    toDoRooms.Add(newroom);
-                }
+                CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
                 if (splitType != SplitType.instant)
                 {
@@ -163,14 +149,7 @@ public class DungeonGenerator : DungeonSettings
                 RectInt newroom = toDoRooms[0];
                 newroom.height = toDoRooms[0].height - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
-                if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
-                {
-                    doneRooms.Add(newroom);
-                }
-                else
-                {
-                    toDoRooms.Add(newroom);
-                }
+                CheckRoomSize(newroom);
                 if (splitType != SplitType.instant)
                 {
                     yield return SplitWait();
@@ -179,14 +158,7 @@ public class DungeonGenerator : DungeonSettings
                 newroom.height = toDoRooms[0].height - (toDoRooms[0].height - splitPoint);
                 newroom.y = toDoRooms[0].y + (toDoRooms[0].height - splitPoint);
                 CurrentRoom = newroom;
-                if (newroom.height <= maximumRoomSize.height && newroom.width <= maximumRoomSize.width)
-                {
-                    doneRooms.Add(newroom);
-                }
-                else
-                {
-                    toDoRooms.Add(newroom);
-                }
+                CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
                 if (splitType != SplitType.instant)
                 {
@@ -198,6 +170,18 @@ public class DungeonGenerator : DungeonSettings
         CurrentRoom = RectInt.zero;
     }
 
+    private void CheckRoomSize(RectInt room)
+    {
+        if (room.width <= maximumRoomSize.width && room.height <= maximumRoomSize.height)
+        {
+            doneRooms.Add(room);
+        }
+        else
+        {
+            toDoRooms.Add(room);
+        }
+    }
+
 
     private IEnumerator AddDoors()
     {
@@ -205,28 +189,26 @@ public class DungeonGenerator : DungeonSettings
         {
             for (int j = i + 1; j < doneRooms.Count; j++)
             {
-                if (AlgorithmsUtils.Intersects(doneRooms[i], doneRooms[j]))
+                RectInt door = AlgorithmsUtils.Intersect(doneRooms[i], doneRooms[j]);
+                if (door.height > 10)
                 {
-                    RectInt door = AlgorithmsUtils.Intersect(doneRooms[i], doneRooms[j]);
-                    if (door.height > 10 || door.width > 10)
-                    {
-                        if (door.width > door.height)
-                        {
-                            door.x += door.width / 2 - 1;
-                            door.width = 3;
-                        }
-                        else
-                        {
-                            door.y += door.height / 2 - 1;
-                            door.height = 3;
-                        }
-                        currentDoor = door;
-                        doors.Add(door);
-                    }
-                    if (splitType != SplitType.instant)
-                    {
-                        yield return SplitWait();
-                    }
+                    door.y += door.height / 2 - 1;
+                    door.height = 3;
+                }
+                else if (door.width > 10)
+                {
+                    door.x += door.width / 2 - 1;
+                    door.width = 3;
+                }
+                else
+                {
+                    continue;
+                }
+                currentDoor = door;
+                doors.Add(door);
+                if (splitType != SplitType.instant)
+                {
+                    yield return SplitWait();
                 }
             }
         }
