@@ -87,7 +87,7 @@ public class TileGraphGenerator : DungeonSettings
         {
             Vector3 currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
-            if (splitType != SplitType.instant) yield return Wait();
+            if (splitType != WaitType.instant) yield return Wait();
             foreach (Vector3 neighbor in GetNeighbors(currentNode))
             {
                 if (_tileMap[(int)neighbor.z, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset))

@@ -66,7 +66,7 @@ public class FloodfillSpawner : DungeonSettings
             Vector2Int currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
             Instantiate(floorPrefab, new Vector3(currentNode.x + 0.5f, 0, currentNode.y + 0.5f), Quaternion.identity, floorParent);
-            if (splitType != SplitType.instant) yield return Wait();
+            if (splitType != WaitType.instant) yield return Wait();
             foreach (Vector2Int neighbor in GetNeighbors(currentNode))
             {
                 if (visited.Contains(neighbor) || _tileMap[neighbor.y, neighbor.x] == 1) continue;

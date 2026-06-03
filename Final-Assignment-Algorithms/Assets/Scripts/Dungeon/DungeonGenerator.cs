@@ -115,7 +115,7 @@ public class DungeonGenerator : DungeonSettings
         toDoRooms.Add(BaseRoom);
         while (toDoRooms.Count > 0)
         {
-            if (splitType != SplitType.instant)
+            if (splitType != WaitType.instant)
             {
                 yield return Wait();
             }
@@ -128,7 +128,7 @@ public class DungeonGenerator : DungeonSettings
                 newroom.width = toDoRooms[0].width - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -138,7 +138,7 @@ public class DungeonGenerator : DungeonSettings
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -150,7 +150,7 @@ public class DungeonGenerator : DungeonSettings
                 newroom.height = toDoRooms[0].height - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -160,7 +160,7 @@ public class DungeonGenerator : DungeonSettings
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -206,7 +206,7 @@ public class DungeonGenerator : DungeonSettings
                 }
                 currentDoor = door;
                 doors.Add(door);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -227,7 +227,7 @@ public class DungeonGenerator : DungeonSettings
         return doors;
     }
 
-    public SplitType GetSplitType()
+    public WaitType GetSplitType()
     {
         return splitType;
     }

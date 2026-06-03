@@ -61,7 +61,7 @@ public class DungeonGraphController : DungeonSettings
         foreach (RectInt room in dungeonGenerator.GetDoneRooms())
         {
             roomGraph.AddNode(room);
-            if (splitType != SplitType.instant)
+            if (splitType != WaitType.instant)
             {
                 yield return Wait();
             }
@@ -73,7 +73,7 @@ public class DungeonGraphController : DungeonSettings
                 if (AlgorithmsUtils.Intersects(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]))
                 {
                     roomGraph.AddEdge(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]);
-                    if (splitType != SplitType.instant)
+                    if (splitType != WaitType.instant)
                     {
                         yield return Wait();
                     }
@@ -98,7 +98,7 @@ public class DungeonGraphController : DungeonSettings
             RectInt currentRoom = queue.Dequeue();
             checkedRoom = currentRoom;
             //Debug.Log(currentRoom);
-            if (splitType != SplitType.instant)
+            if (splitType != WaitType.instant)
             {
                 yield return Wait();
             }
@@ -130,7 +130,7 @@ public class DungeonGraphController : DungeonSettings
             if (deletable) //delete room
             {
                 DeleteRoom(roomToDelete);
-                if (splitType != SplitType.instant)
+                if (splitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -192,7 +192,7 @@ public class DungeonGraphController : DungeonSettings
             {
                 dungeonGenerator.GetDoors().Remove(node);
                 roomGraph.RemoveNode(node);
-                if (splitType != SplitType.instant) yield return Wait();
+                if (splitType != WaitType.instant) yield return Wait();
             }
         }
         if (autoContinue) onScriptComplete?.Invoke();

@@ -11,10 +11,10 @@ public class DungeonSettings : MonoBehaviour
     [SerializeField]
     protected bool autoContinue = false;
 
-    public enum SplitType { instant, withDelay, withSpacebar }
+    public enum WaitType { instant, withDelay, withSpacebar }
 
     [SerializeField]
-    protected SplitType splitType = SplitType.withDelay;
+    protected WaitType splitType = WaitType.withDelay;
 
     [SerializeField]
     protected float secondsToWait;
@@ -24,10 +24,10 @@ public class DungeonSettings : MonoBehaviour
     {
         switch (splitType)
         {
-            case SplitType.withDelay:
+            case WaitType.withDelay:
                 yield return new WaitForSeconds(secondsToWait);
                 break;
-            case SplitType.withSpacebar:
+            case WaitType.withSpacebar:
                 yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
                 yield return null;
                 break;
