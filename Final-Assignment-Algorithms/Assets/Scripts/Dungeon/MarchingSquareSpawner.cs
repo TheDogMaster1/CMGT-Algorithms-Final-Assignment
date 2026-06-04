@@ -51,7 +51,7 @@ public class MarchingSquareSpawner : DungeonSettings
                     Instantiate(wallAssets[binaryCase], new Vector3(j + 1, 0, i + 1), Quaternion.identity, wallParent);
                 }
                 //Debug.Log(binaryCase);
-                if (splitType != WaitType.instant) yield return Wait();
+                if (waitType != WaitType.instant) yield return Wait();
             }
         }
         marchingSquare = RectInt.zero;

@@ -14,7 +14,7 @@ public class DungeonSettings : MonoBehaviour
     public enum WaitType { instant, withDelay, withSpacebar }
 
     [SerializeField]
-    protected WaitType splitType = WaitType.withDelay;
+    protected WaitType waitType = WaitType.withDelay;
 
     [SerializeField]
     protected float secondsToWait;
@@ -22,7 +22,7 @@ public class DungeonSettings : MonoBehaviour
 
     protected IEnumerator Wait()
     {
-        switch (splitType)
+        switch (waitType)
         {
             case WaitType.withDelay:
                 yield return new WaitForSeconds(secondsToWait);

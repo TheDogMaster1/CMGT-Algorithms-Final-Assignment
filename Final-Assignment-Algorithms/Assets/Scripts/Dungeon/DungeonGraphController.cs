@@ -61,7 +61,7 @@ public class DungeonGraphController : DungeonSettings
         foreach (RectInt room in dungeonGenerator.GetDoneRooms())
         {
             roomGraph.AddNode(room);
-            if (splitType != WaitType.instant)
+            if (waitType != WaitType.instant)
             {
                 yield return Wait();
             }
@@ -73,7 +73,7 @@ public class DungeonGraphController : DungeonSettings
                 if (AlgorithmsUtils.Intersects(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]))
                 {
                     roomGraph.AddEdge(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]);
-                    if (splitType != WaitType.instant)
+                    if (waitType != WaitType.instant)
                     {
                         yield return Wait();
                     }
@@ -98,7 +98,7 @@ public class DungeonGraphController : DungeonSettings
             RectInt currentRoom = queue.Dequeue();
             checkedRoom = currentRoom;
             //Debug.Log(currentRoom);
-            if (splitType != WaitType.instant)
+            if (waitType != WaitType.instant)
             {
                 yield return Wait();
             }
@@ -130,7 +130,7 @@ public class DungeonGraphController : DungeonSettings
             if (deletable) //delete room
             {
                 DeleteRoom(roomToDelete);
-                if (splitType != WaitType.instant)
+                if (waitType != WaitType.instant)
                 {
                     yield return Wait();
                 }
@@ -185,14 +185,15 @@ public class DungeonGraphController : DungeonSettings
     private IEnumerator RemoveCycles()
     {
         Graph<RectInt> dfsGraph = DFSGraphMaker();
+        HashSet<RectInt> doors = dungeonGenerator.GetDoorsHash();
 
         foreach (RectInt node in dfsGraph.ReturnNodesList())
         {
-            if (dungeonGenerator.GetDoors().Contains(node) && dfsGraph.ReturnAdjacents(node).Count == 1)
+            if (doors.Contains(node) && dfsGraph.ReturnAdjacents(node).Count == 1)
             {
                 dungeonGenerator.GetDoors().Remove(node);
                 roomGraph.RemoveNode(node);
-                if (splitType != WaitType.instant) yield return Wait();
+                if (waitType != WaitType.instant) yield return Wait();
             }
         }
         if (autoContinue) onScriptComplete?.Invoke();

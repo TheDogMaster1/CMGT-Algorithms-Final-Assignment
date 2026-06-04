@@ -304,7 +304,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   autoContinue: 0
-  splitType: 0
+  waitType: 1
   secondsToWait: 0
   toDoRooms: []
   doneRooms: []
@@ -644,7 +644,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   autoContinue: 1
-  splitType: 0
+  waitType: 0
   secondsToWait: 0.1
   toDoRooms: []
   doneRooms: []
@@ -706,7 +706,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   autoContinue: 1
-  splitType: 0
+  waitType: 0
   secondsToWait: 0
   deletePercent: 10
 --- !u!114 &2061578851
@@ -765,7 +765,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   autoContinue: 1
-  splitType: 0
+  waitType: 0
   secondsToWait: 0
   wallAssets:
   - {fileID: 0}
@@ -813,10 +813,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   autoContinue: 1
-  splitType: 0
-  secondsToWait: 0
+  waitType: 1
+  secondsToWait: 0.1
   floorPrefab: {fileID: 3204687337251383887, guid: ee2ec93b0f8db314d99c5c4ca581bc18, type: 3}
   floorParent: {fileID: 1365899027}
+  test: []
 --- !u!114 &2061578854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +834,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   autoContinue: 0
-  splitType: 0
+  waitType: 0
   secondsToWait: 0
   player: {fileID: 1639038945}
   draw: 0

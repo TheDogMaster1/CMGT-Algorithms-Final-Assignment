@@ -60,16 +60,16 @@ public class DungeonAddAssets : DungeonSettings
             for (int x = room.xMin; x < room.xMax; x++)
             {
                 StartCoroutine(AddWall(new Vector2Int(x, room.yMin), offset));
-                if (splitType != WaitType.instant) yield return null;
+                if (waitType != WaitType.instant) yield return null;
                 StartCoroutine(AddWall(new Vector2Int(x, room.yMax - 1), offset));
-                if (splitType != WaitType.instant) yield return null;
+                if (waitType != WaitType.instant) yield return null;
             }
             for (int y = room.yMin; y < room.yMax; y++)
             {
                 StartCoroutine(AddWall(new Vector2Int(room.xMin, y), offset));
-                if (splitType != WaitType.instant) yield return null;
+                if (waitType != WaitType.instant) yield return null;
                 StartCoroutine(AddWall(new Vector2Int(room.xMax - 1, y), offset));
-                if (splitType != WaitType.instant) yield return null;
+                if (waitType != WaitType.instant) yield return null;
             }
         }
 
@@ -80,11 +80,11 @@ public class DungeonAddAssets : DungeonSettings
                 for (int j = room.yMin; j < room.yMax; j++)
                 {
                     StartCoroutine(AddFloor(new Vector2Int(i, j), new Vector3(0.5f, 0, 0.5f)));
-                    if (splitType != WaitType.instant) yield return null;
+                    if (waitType != WaitType.instant) yield return null;
                 }
             }
         }
-        if (splitType != WaitType.instant) yield return null;
+        if (waitType != WaitType.instant) yield return null;
         player.transform.position = new Vector3(dGen.GetDoneRooms()[0].center.x, 1, dGen.GetDoneRooms()[0].center.y);
         if (autoContinue) onScriptComplete?.Invoke();
     }
@@ -97,7 +97,7 @@ public class DungeonAddAssets : DungeonSettings
         {
             Instantiate(floorPrefab, spawnPos, Quaternion.Euler(90, 0, 0), floorParent);
             floorPositions.Add(spawnPos);
-            if (splitType != WaitType.instant) yield return Wait();
+            if (waitType != WaitType.instant) yield return Wait();
         }
     }
 
@@ -109,7 +109,7 @@ public class DungeonAddAssets : DungeonSettings
         {
             Instantiate(wallPrefab, spawnPos, Quaternion.identity, wallParent);
             wallPositions.Add(spawnPos);
-            if (splitType != WaitType.instant) yield return Wait();
+            if (waitType != WaitType.instant) yield return Wait();
         }
     }
 
