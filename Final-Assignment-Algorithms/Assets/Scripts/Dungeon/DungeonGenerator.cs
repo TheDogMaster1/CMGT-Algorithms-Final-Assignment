@@ -128,20 +128,14 @@ public class DungeonGenerator : DungeonSettings
                 newroom.width = toDoRooms[0].width - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
 
                 newroom.width = toDoRooms[0].width - (toDoRooms[0].width - splitPoint);
                 newroom.x = toDoRooms[0].x + (toDoRooms[0].width - splitPoint);
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
             }
             else
             {
@@ -150,20 +144,14 @@ public class DungeonGenerator : DungeonSettings
                 newroom.height = toDoRooms[0].height - splitPoint + overlapAmount;
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
 
                 newroom.height = toDoRooms[0].height - (toDoRooms[0].height - splitPoint);
                 newroom.y = toDoRooms[0].y + (toDoRooms[0].height - splitPoint);
                 CurrentRoom = newroom;
                 CheckRoomSize(newroom);
                 toDoRooms.Remove(toDoRooms[0]);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
             }
         }
         StartCoroutine(AddDoors());
@@ -206,10 +194,7 @@ public class DungeonGenerator : DungeonSettings
                 }
                 currentDoor = door;
                 doors.Add(door);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
             }
         }
         currentDoor = RectInt.zero;

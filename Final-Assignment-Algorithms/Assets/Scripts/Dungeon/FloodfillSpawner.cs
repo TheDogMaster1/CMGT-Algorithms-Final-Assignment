@@ -19,13 +19,13 @@ public class FloodfillSpawner : DungeonSettings
     private Vector2Int[] dir =
     {
         new (1, 0),
-        //new(1,-1),
+        new(1,-1),
         new (0, -1),
-        //new(-1,-1),
+        new(-1,-1),
         new(-1, 0),
-        //new(-1,1),
+        new(-1,1),
         new (0, 1),
-        //new(1,1),
+        new(1,1),
 
     };
 
@@ -41,8 +41,6 @@ public class FloodfillSpawner : DungeonSettings
     public void StartSpawningFloors()
     {
         StartCoroutine(FloodfillAlgorithm());
-        //HashSet<Vector2Int> visited = new();
-        //RecursiveFloodFill(tileMapGenerator.GetTileMap(), dGen.GetDoors()[0].position, visited);
     }
 
     private List<Vector2Int> GetNeighbors(Vector2Int Node)
@@ -80,19 +78,6 @@ public class FloodfillSpawner : DungeonSettings
             }
         }
         if (autoContinue) onScriptComplete?.Invoke();
-    }
-
-    private Vector2Int RecursiveFloodFill(int[,] _tileMap, Vector2Int currentNode, HashSet<Vector2Int> visited)
-    {
-        visited.Add(currentNode);
-        test.Add(currentNode);
-        //Instantiate(floorPrefab, new Vector3(currentNode.x + 0.5f, 0, currentNode.y + 0.5f), Quaternion.identity, floorParent);
-        foreach (Vector2Int neighbor in GetNeighbors(currentNode))
-        {
-            if (visited.Contains(neighbor) || _tileMap[neighbor.y, neighbor.x] == 1) continue;
-            RecursiveFloodFill(_tileMap, neighbor, visited);
-        }
-        return currentNode;
     }
     public Transform GetFloorParent()
     {

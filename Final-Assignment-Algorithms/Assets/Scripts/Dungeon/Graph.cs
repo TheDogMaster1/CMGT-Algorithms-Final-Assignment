@@ -46,6 +46,42 @@ public class Graph<T>
         nodeList[toNode].Add(fromNode);
     }
 
+    public bool BFSGraphSearch(HashSet<T> visited)
+    {
+        T firstroom = ReturnNodesList()[0];
+        if (visited.Contains(firstroom))
+        {
+            firstroom = ReturnNodesList()[1];
+        }
+        Queue<T> queue = new();
+        queue.Enqueue(firstroom);
+
+        visited.Add(firstroom);
+        while (queue.Count > 0)
+        {
+            T currentRoom = queue.Dequeue();
+            foreach (T neighbor in ReturnAdjacents(currentRoom))
+            {
+                if (visited.Contains(neighbor)) continue;
+                queue.Enqueue(neighbor);
+                visited.Add(neighbor);
+            }
+        }
+        bool everythingIsVisitable = ReturnGraphLength() == visited.Count;
+        return everythingIsVisitable;
+    }
+
+    public void DFSGraphMaker(HashSet<T> visited, T currentNode, Graph<T> usedGraph)
+    {
+        visited.Add(currentNode);
+        foreach (T neighbor in usedGraph.ReturnAdjacents(currentNode))
+        {
+            if (visited.Contains(neighbor)) continue;
+            AddEdge(neighbor, currentNode);
+            DFSGraphMaker(visited, neighbor, usedGraph);
+        }
+    }
+
     public void RemoveEdge(T fromNode, T toNode)
     {
         nodeList[fromNode].Remove(toNode);

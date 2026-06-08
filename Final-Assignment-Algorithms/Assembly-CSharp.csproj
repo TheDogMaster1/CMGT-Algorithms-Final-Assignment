@@ -65,7 +65,6 @@
     <Compile Include="Assets\DebugDrawingExtension\Example\Example.cs" />
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
     <Compile Include="Assets\Scripts\Player\MouseClickController.cs" />
-    <Compile Include="Assets\Scripts\BFS.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFinder.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileMapGenerator.cs" />
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />

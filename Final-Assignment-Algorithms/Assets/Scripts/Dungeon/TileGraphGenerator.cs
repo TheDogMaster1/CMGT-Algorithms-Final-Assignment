@@ -63,12 +63,12 @@ public class TileGraphGenerator : DungeonSettings
         }
     }
 
+    [Button(enabledMode: EButtonEnableMode.Always)]
     public void StartTileGraphGen()
     {
         StartCoroutine(GenerateGraph());
     }
 
-    [Button]
     private IEnumerator GenerateGraph()
     {
         tileGraph.ClearGraph();

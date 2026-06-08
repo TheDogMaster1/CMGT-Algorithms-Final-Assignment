@@ -705,7 +705,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  autoContinue: 1
+  autoContinue: 0
   waitType: 0
   secondsToWait: 0
   deletePercent: 10
@@ -813,7 +813,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   autoContinue: 1
-  waitType: 1
+  waitType: 0
   secondsToWait: 0.1
   floorPrefab: {fileID: 3204687337251383887, guid: ee2ec93b0f8db314d99c5c4ca581bc18, type: 3}
   floorParent: {fileID: 1365899027}

@@ -7,46 +7,53 @@ using UnityEngine;
 public class DungeonGraphController : DungeonSettings
 {
     private DungeonGenerator dungeonGenerator;
-    private DungeonAddAssets dungeonAddAssets;
 
     private Graph<RectInt> roomGraph;
-    private BFS<RectInt> bfs;
+    private Graph<RectInt> dfsGraph;
 
     private RectInt checkedRoom;
-
-    private HashSet<RectInt> visited = new();
 
     private bool canRemove = true;
 
     [Range(0, 100)]
     [SerializeField]
     private float deletePercent = 0;
+    [SerializeField]
+    private bool showDFSGraph = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dungeonGenerator = GetComponent<DungeonGenerator>();
-        dungeonAddAssets = GetComponent<DungeonAddAssets>();
         roomGraph = new();
-        bfs = new();
+        dfsGraph = new();
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (RectInt room in roomGraph.ReturnNodesList())
+        if (!showDFSGraph)
         {
-            DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
-            foreach (RectInt door in roomGraph.ReturnAdjacents(room))
+            foreach (RectInt room in roomGraph.ReturnNodesList())
             {
-                Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
+                DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
+                foreach (RectInt door in roomGraph.ReturnAdjacents(room))
+                {
+                    Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
+                }
+            }
+        }
+        else
+        {
+            foreach (RectInt room in dfsGraph.ReturnNodesList())
+            {
+                DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
+                foreach (RectInt door in dfsGraph.ReturnAdjacents(room))
+                {
+                    Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
+                }
             }
         }
         if (checkedRoom.width > 0) AlgorithmsUtils.DebugRectInt(checkedRoom, Color.white, 0, false, 3);
-
-        foreach (RectInt visitedroom in visited)
-        {
-            AlgorithmsUtils.DebugRectInt(visitedroom, Color.yellow, 0, false, 2);
-        }
     }
 
     public void StartDungeonGraphGeneration()
@@ -61,10 +68,7 @@ public class DungeonGraphController : DungeonSettings
         foreach (RectInt room in dungeonGenerator.GetDoneRooms())
         {
             roomGraph.AddNode(room);
-            if (waitType != WaitType.instant)
-            {
-                yield return Wait();
-            }
+            if (waitType != WaitType.instant) yield return Wait();
         }
         for (int i = 0; i < dungeonGenerator.GetDoneRooms().Count; i++)
         {
@@ -73,43 +77,11 @@ public class DungeonGraphController : DungeonSettings
                 if (AlgorithmsUtils.Intersects(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]))
                 {
                     roomGraph.AddEdge(dungeonGenerator.GetDoneRooms()[i], dungeonGenerator.GetDoors()[j]);
-                    if (waitType != WaitType.instant)
-                    {
-                        yield return Wait();
-                    }
+                    if (waitType != WaitType.instant) yield return Wait();
                 }
             }
         }
         if (autoContinue) StartCoroutine(RemoveRooms());
-    }
-    private IEnumerator CheckGraph()
-    {
-        RectInt firstroom = roomGraph.ReturnNodesList()[0];
-        if (visited.Contains(firstroom))
-        {
-            firstroom = roomGraph.ReturnNodesList()[1];
-        }
-        Queue<RectInt> queue = new();
-        queue.Enqueue(firstroom);
-
-        visited.Add(firstroom);
-        while (queue.Count > 0)
-        {
-            RectInt currentRoom = queue.Dequeue();
-            checkedRoom = currentRoom;
-            //Debug.Log(currentRoom);
-            if (waitType != WaitType.instant)
-            {
-                yield return Wait();
-            }
-            foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
-            {
-                if (visited.Contains(neighbor)) continue;
-                queue.Enqueue(neighbor);
-                visited.Add(neighbor);
-            }
-        }
-        checkedRoom = new();
     }
 
     [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -119,21 +91,20 @@ public class DungeonGraphController : DungeonSettings
         int initialRoomCount = dungeonGenerator.GetDoneRooms().Count;
         canRemove = true;
 
+
         while (canRemove == true && dungeonGenerator.GetDoneRooms().Count > deleteAmount)
         {
+            HashSet<RectInt> visited = new();
             RectInt roomToDelete = GetSmallestRoom(dungeonGenerator.GetDoneRooms()[0]);
 
             visited.Add(roomToDelete);
 
-            var deletable = bfs.GraphSearch(roomGraph, visited);
+            var deletable = roomGraph.BFSGraphSearch(visited);
 
             if (deletable) //delete room
             {
                 DeleteRoom(roomToDelete);
-                if (waitType != WaitType.instant)
-                {
-                    yield return Wait();
-                }
+                if (waitType != WaitType.instant) yield return Wait();
             }
             else // keep room
             {
@@ -143,8 +114,6 @@ public class DungeonGraphController : DungeonSettings
                 AlgorithmsUtils.DebugRectInt(roomToDelete, Color.cyan, 3, false, 3);
                 canRemove = false;
             }
-            visited.Clear();
-
         }
         Debug.Log("done deleting");
         Debug.Log("Deleted " + (initialRoomCount - dungeonGenerator.GetDoneRooms().Count) + " rooms");
@@ -159,17 +128,12 @@ public class DungeonGraphController : DungeonSettings
             {
                 room = dungeonGenerator.GetDoneRooms()[i];
             }
-            else
-            {
-                continue;
-            }
         }
         return room;
     }
 
     private void DeleteRoom(RectInt room)
     {
-        Debug.Log(visited.Count + " " + roomGraph.ReturnGraphLength());
         foreach (RectInt door in roomGraph.ReturnAdjacents(room))
         {
             dungeonGenerator.GetDoors().Remove(door);
@@ -184,7 +148,8 @@ public class DungeonGraphController : DungeonSettings
     [Button(enabledMode: EButtonEnableMode.Playmode)]
     private IEnumerator RemoveCycles()
     {
-        Graph<RectInt> dfsGraph = DFSGraphMaker();
+        HashSet<RectInt> visited = new();
+        dfsGraph.DFSGraphMaker(visited, roomGraph.ReturnNodesList()[0], roomGraph);
         HashSet<RectInt> doors = dungeonGenerator.GetDoorsHash();
 
         foreach (RectInt node in dfsGraph.ReturnNodesList())
@@ -197,30 +162,6 @@ public class DungeonGraphController : DungeonSettings
             }
         }
         if (autoContinue) onScriptComplete?.Invoke();
-    }
-    private Graph<RectInt> DFSGraphMaker()
-    {
-        RectInt firstroom = roomGraph.ReturnNodesList()[0];
-        Graph<RectInt> dfsGraph = new();
-        Stack<RectInt> stack = new();
-        stack.Push(firstroom);
-
-        visited.Add(firstroom);
-        while (stack.Count > 0)
-        {
-            RectInt currentRoom = stack.Pop();
-            checkedRoom = currentRoom;
-            foreach (RectInt neighbor in roomGraph.ReturnAdjacents(currentRoom))
-            {
-                if (visited.Contains(neighbor)) continue;
-                stack.Push(neighbor);
-                visited.Add(neighbor);
-                dfsGraph.AddEdge(currentRoom, neighbor);
-            }
-        }
-        visited.Clear();
-        checkedRoom = new();
-        return dfsGraph;
     }
 
     public Graph<RectInt> GetRoomGraph()
