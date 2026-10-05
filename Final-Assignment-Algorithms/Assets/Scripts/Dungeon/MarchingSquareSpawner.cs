@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MarchingSquareSpawner : DungeonSettings
@@ -14,6 +15,8 @@ public class MarchingSquareSpawner : DungeonSettings
 
     [SerializeField]
     private Transform wallParent;
+
+    private HashSet<Vector3> wallSpawns = new();
 
     private RectInt marchingSquare;
     private void Start()
@@ -49,6 +52,7 @@ public class MarchingSquareSpawner : DungeonSettings
                 if (wallAssets[binaryCase] != null)
                 {
                     Instantiate(wallAssets[binaryCase], new Vector3(j + 1, 0, i + 1), Quaternion.identity, wallParent);
+                    wallSpawns.Add(new Vector3(j + 1, 0, i + 1));
                 }
                 //Debug.Log(binaryCase);
                 if (waitType != WaitType.instant) yield return Wait();
@@ -61,5 +65,15 @@ public class MarchingSquareSpawner : DungeonSettings
     public Transform GetWallParent()
     {
         return wallParent;
+    }
+
+    public HashSet<Vector3> GetWallSpawns()
+    {
+        return wallSpawns;
+    }
+
+    public void ResetHashSet()
+    {
+        wallSpawns.Clear();
     }
 }

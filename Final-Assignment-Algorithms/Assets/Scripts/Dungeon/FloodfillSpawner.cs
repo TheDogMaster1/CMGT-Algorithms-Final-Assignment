@@ -13,6 +13,7 @@ public class FloodfillSpawner : DungeonSettings
 
     private DungeonGenerator dGen;
     private TileMapGenerator tileMapGenerator;
+    private MarchingSquareSpawner marchingSquareSpawner;
 
     public List<Vector2Int> test = new();
 
@@ -36,6 +37,7 @@ public class FloodfillSpawner : DungeonSettings
     {
         dGen = GetComponent<DungeonGenerator>();
         tileMapGenerator = GetComponent<TileMapGenerator>();
+        marchingSquareSpawner = GetComponent<MarchingSquareSpawner>();
     }
 
     public void StartSpawningFloors()
@@ -61,6 +63,7 @@ public class FloodfillSpawner : DungeonSettings
         Debug.Log(doorCenter);
         Queue<Vector2Int> queue = new();
         queue.Enqueue(doorCenter);
+        HashSet<Vector3> wallSpawns = marchingSquareSpawner.GetWallSpawns();
 
         HashSet<Vector2Int> visited = new();
         visited.Add(doorCenter);
@@ -68,7 +71,10 @@ public class FloodfillSpawner : DungeonSettings
         {
             Vector2Int currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
-            Instantiate(floorPrefab, new Vector3(currentNode.x + 0.5f, 0, currentNode.y + 0.5f), Quaternion.identity, floorParent);
+            if (!wallSpawns.Contains(new Vector3(currentNode.x, 0, currentNode.y)))
+            {
+                Instantiate(floorPrefab, new Vector3(currentNode.x, 0, currentNode.y), Quaternion.identity, floorParent);
+            }
             if (waitType != WaitType.instant) yield return Wait();
             foreach (Vector2Int neighbor in GetNeighbors(currentNode))
             {
@@ -77,6 +83,7 @@ public class FloodfillSpawner : DungeonSettings
                 visited.Add(neighbor);
             }
         }
+        marchingSquareSpawner.ResetHashSet();
         if (autoContinue) onScriptComplete?.Invoke();
     }
     public Transform GetFloorParent()
