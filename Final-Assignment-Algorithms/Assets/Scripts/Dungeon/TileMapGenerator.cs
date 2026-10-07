@@ -23,7 +23,7 @@ public class TileMapGenerator : MonoBehaviour
     [Button]
     public void GenerateTileMap()
     {
-        int[,] tileMap = new int[dungeonGenerator.GetDungeonBounds().height, dungeonGenerator.GetDungeonBounds().width];
+        int[,] tileMap = new int[dungeonGenerator.GetDungeonBounds().height + 2, dungeonGenerator.GetDungeonBounds().width + 2];
         int rows = tileMap.GetLength(0);
         int cols = tileMap.GetLength(1);
 

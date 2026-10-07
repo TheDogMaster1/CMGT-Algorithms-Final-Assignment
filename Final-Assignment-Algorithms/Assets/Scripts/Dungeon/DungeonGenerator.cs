@@ -197,10 +197,9 @@ public class DungeonGenerator : DungeonSettings
                 if (waitType != WaitType.instant) yield return Wait();
             }
         }
-        currentDoor = RectInt.zero;
         if (autoContinue) onScriptComplete?.Invoke();
+        currentDoor = RectInt.zero;
     }
-
 
     public List<RectInt> GetDoneRooms()
     {

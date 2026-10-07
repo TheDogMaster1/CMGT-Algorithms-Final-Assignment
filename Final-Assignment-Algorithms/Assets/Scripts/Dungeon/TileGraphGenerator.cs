@@ -10,6 +10,7 @@ public class TileGraphGenerator : DungeonSettings
 
     DungeonGenerator dGen;
     TileMapGenerator tileMapGenerator;
+    MarchingSquareSpawner marchingSquareSpawner;
 
     [SerializeField]
     private GameObject player;
@@ -25,28 +26,29 @@ public class TileGraphGenerator : DungeonSettings
     private Vector3[] dirs8 =
     {
         new (1, 0, 0),
-        new(1, 0, -1),
-        new (0, 0, -1),
-        new(-1, 0, -1),
+        new(1, -1, 0),
+        new (0, -1, 0),
+        new(-1, -1, 0),
         new(-1,0, 0),
-        new(-1,0, 1),
-        new (0, 0, 1),
-        new(1, 0, 1),
+        new(-1,1, 0),
+        new (0, 1, 0),
+        new(1, 1, 0),
 
     };
 
     private Vector3[] dirs4 =
     {
         new(1, 0, 0),
-        new(0, 0, -1),
+        new(0, -1, 0),
         new(-1, 0, 0),
-        new(0, 0, 1),
+        new(0, 1, 0),
     };
 
     private void Start()
     {
         dGen = GetComponent<DungeonGenerator>();
         tileMapGenerator = GetComponent<TileMapGenerator>();
+        marchingSquareSpawner = GetComponent<MarchingSquareSpawner>();
         tileGraph = new();
     }
 
@@ -74,8 +76,8 @@ public class TileGraphGenerator : DungeonSettings
         tileGraph.ClearGraph();
         _tileMap = tileMapGenerator.GetTileMap();
         Vector2 roomCenter = dGen.GetDoors()[0].position;
-        Vector3 startNode = new Vector3(roomCenter.x, 0, roomCenter.y);
-        Vector3 offset = new(0.5f, 0, 0.5f);
+        Vector3 startNode = new Vector3(roomCenter.x, roomCenter.y, 0);
+        Vector3 offset = new(0, 0, 0);
 
         Queue<Vector3> queue = new();
         queue.Enqueue(startNode);
@@ -90,11 +92,11 @@ public class TileGraphGenerator : DungeonSettings
             if (waitType != WaitType.instant) yield return Wait();
             foreach (Vector3 neighbor in GetNeighbors(currentNode))
             {
-                if (_tileMap[(int)neighbor.z, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset))
+                if (_tileMap[(int)neighbor.y, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset) && !marchingSquareSpawner.GetWallSpawns().Contains(neighbor))
                 {
                     tileGraph.AddEdge(currentNode + offset, neighbor + offset);
                 }
-                if (visited.Contains(neighbor) || _tileMap[(int)neighbor.z, (int)neighbor.x] == 1) continue;
+                if (visited.Contains(neighbor) || _tileMap[(int)neighbor.y, (int)neighbor.x] == 1 || marchingSquareSpawner.GetWallSpawns().Contains(neighbor)) continue;
                 queue.Enqueue(neighbor);
                 visited.Add(neighbor);
             }

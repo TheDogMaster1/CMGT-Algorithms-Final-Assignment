@@ -51,8 +51,8 @@ public class MarchingSquareSpawner : DungeonSettings
                 int binaryCase = _tileMap[i, j + 1] * 1 + _tileMap[i + 1, j + 1] * 2 + _tileMap[i + 1, j] * 4 + _tileMap[i, j] * 8;
                 if (wallAssets[binaryCase] != null)
                 {
-                    Instantiate(wallAssets[binaryCase], new Vector3(j + 1, 0, i + 1), Quaternion.identity, wallParent);
-                    wallSpawns.Add(new Vector3(j + 1, 0, i + 1));
+                    Instantiate(wallAssets[binaryCase], new Vector3(j + 1, i + 1, 0), Quaternion.identity, wallParent);
+                    wallSpawns.Add(new Vector3(j + 1, i + 1, 0));
                 }
                 //Debug.Log(binaryCase);
                 if (waitType != WaitType.instant) yield return Wait();

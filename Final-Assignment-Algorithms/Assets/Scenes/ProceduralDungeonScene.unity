@@ -650,9 +650,9 @@ MonoBehaviour:
   doneRooms: []
   doors: []
   BaseRoom:
-    x: 0
-    y: 0
-    width: 150
+    x: 1
+    y: 1
+    width: 100
     height: 100
   maximumRoomSize:
     x: 0
@@ -708,7 +708,7 @@ MonoBehaviour:
   autoContinue: 1
   waitType: 0
   secondsToWait: 0
-  deletePercent: 50
+  deletePercent: 0
   showDFSGraph: 0
 --- !u!114 &2061578851
 MonoBehaviour:
@@ -838,7 +838,7 @@ MonoBehaviour:
   waitType: 0
   secondsToWait: 0
   player: {fileID: 1639038945}
-  draw: 0
+  draw: 1
   fourDirections: 0
 --- !u!114 &2061578855
 MonoBehaviour:

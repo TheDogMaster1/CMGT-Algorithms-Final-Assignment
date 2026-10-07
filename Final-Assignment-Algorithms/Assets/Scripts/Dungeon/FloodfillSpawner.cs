@@ -71,9 +71,9 @@ public class FloodfillSpawner : DungeonSettings
         {
             Vector2Int currentNode = queue.Dequeue();
             //Debug.Log(currentRoom);
-            if (!wallSpawns.Contains(new Vector3(currentNode.x, 0, currentNode.y)))
+            if (!wallSpawns.Contains(new Vector3(currentNode.x, currentNode.y, 0)))
             {
-                Instantiate(floorPrefab, new Vector3(currentNode.x, 0, currentNode.y), Quaternion.identity, floorParent);
+                Instantiate(floorPrefab, new Vector3(currentNode.x, currentNode.y, 0), Quaternion.identity, floorParent);
             }
             if (waitType != WaitType.instant) yield return Wait();
             foreach (Vector2Int neighbor in GetNeighbors(currentNode))
