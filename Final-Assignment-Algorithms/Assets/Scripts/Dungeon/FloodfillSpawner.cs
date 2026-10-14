@@ -83,7 +83,6 @@ public class FloodfillSpawner : DungeonSettings
                 visited.Add(neighbor);
             }
         }
-        marchingSquareSpawner.ResetHashSet();
         if (autoContinue) onScriptComplete?.Invoke();
     }
     public Transform GetFloorParent()

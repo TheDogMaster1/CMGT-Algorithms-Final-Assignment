@@ -35,10 +35,10 @@ public class DungeonGraphController : DungeonSettings
         {
             foreach (RectInt room in roomGraph.ReturnNodesList())
             {
-                DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
+                DebugExtension.DebugWireSphere(new Vector3(room.center.x, room.center.y, 0), Color.cyan);
                 foreach (RectInt door in roomGraph.ReturnAdjacents(room))
                 {
-                    Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
+                    Debug.DrawLine(new Vector3(room.center.x, room.center.y, 0), new Vector3(door.center.x, door.center.y, 0), Color.yellow);
                 }
             }
         }
@@ -46,10 +46,10 @@ public class DungeonGraphController : DungeonSettings
         {
             foreach (RectInt room in dfsGraph.ReturnNodesList())
             {
-                DebugExtension.DebugWireSphere(new Vector3(room.center.x, 0, room.center.y), Color.cyan);
+                DebugExtension.DebugWireSphere(new Vector3(room.center.x, room.center.y, 0), Color.cyan);
                 foreach (RectInt door in dfsGraph.ReturnAdjacents(room))
                 {
-                    Debug.DrawLine(new Vector3(room.center.x, 0, room.center.y), new Vector3(door.center.x, 0, door.center.y), Color.yellow);
+                    Debug.DrawLine(new Vector3(room.center.x, room.center.y, 0), new Vector3(door.center.x, door.center.y, 0), Color.yellow);
                 }
             }
         }

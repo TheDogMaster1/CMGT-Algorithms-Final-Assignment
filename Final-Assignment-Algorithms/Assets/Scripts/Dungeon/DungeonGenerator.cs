@@ -84,6 +84,7 @@ public class DungeonGenerator : DungeonSettings
         doneRooms.Clear();
         doors.Clear();
         graphController.GetRoomGraph().ClearGraph();
+        marchingSquares.ResetHashSet();
         random = new();
         currentDoor = new();
         CurrentRoom = new();

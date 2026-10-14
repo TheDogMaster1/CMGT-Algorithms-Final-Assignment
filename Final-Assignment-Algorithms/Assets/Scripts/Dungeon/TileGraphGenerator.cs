@@ -76,12 +76,11 @@ public class TileGraphGenerator : DungeonSettings
         tileGraph.ClearGraph();
         _tileMap = tileMapGenerator.GetTileMap();
         Vector2 roomCenter = dGen.GetDoors()[0].position;
-        Vector3 startNode = new Vector3(roomCenter.x, roomCenter.y, 0);
-        Vector3 offset = new(0, 0, 0);
+        Vector3 startNode = new Vector3(roomCenter.x, roomCenter.y + 1, 0);
 
         Queue<Vector3> queue = new();
         queue.Enqueue(startNode);
-        tileGraph.AddNode(startNode + offset);
+        tileGraph.AddNode(startNode);
 
         HashSet<Vector3> visited = new();
         visited.Add(startNode);
@@ -92,9 +91,9 @@ public class TileGraphGenerator : DungeonSettings
             if (waitType != WaitType.instant) yield return Wait();
             foreach (Vector3 neighbor in GetNeighbors(currentNode))
             {
-                if (_tileMap[(int)neighbor.y, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode + offset).Contains(neighbor + offset) && !marchingSquareSpawner.GetWallSpawns().Contains(neighbor))
+                if (_tileMap[(int)neighbor.y, (int)neighbor.x] != 1 && !tileGraph.ReturnAdjacentsHashSet(currentNode).Contains(neighbor) && !marchingSquareSpawner.GetWallSpawns().Contains(neighbor))
                 {
-                    tileGraph.AddEdge(currentNode + offset, neighbor + offset);
+                    tileGraph.AddEdge(currentNode, neighbor);
                 }
                 if (visited.Contains(neighbor) || _tileMap[(int)neighbor.y, (int)neighbor.x] == 1 || marchingSquareSpawner.GetWallSpawns().Contains(neighbor)) continue;
                 queue.Enqueue(neighbor);
@@ -102,7 +101,7 @@ public class TileGraphGenerator : DungeonSettings
             }
         }
 
-        player.transform.position = new Vector3(dGen.GetDoneRooms()[0].center.x, 1, dGen.GetDoneRooms()[0].center.y);
+        player.transform.position = new Vector3(dGen.GetDoneRooms()[0].center.x, dGen.GetDoneRooms()[0].center.y, 0);
     }
 
     private List<Vector3> GetNeighbors(Vector3 node)
