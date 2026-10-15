@@ -21,7 +21,7 @@ public class DungeonGraphController : DungeonSettings
     [SerializeField]
     private bool showDFSGraph = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         dungeonGenerator = GetComponent<DungeonGenerator>();
         roomGraph = new();

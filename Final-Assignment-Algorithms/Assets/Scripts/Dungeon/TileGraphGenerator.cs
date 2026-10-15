@@ -44,7 +44,7 @@ public class TileGraphGenerator : DungeonSettings
         new(0, 1, 0),
     };
 
-    private void Start()
+    private void Awake()
     {
         dGen = GetComponent<DungeonGenerator>();
         tileMapGenerator = GetComponent<TileMapGenerator>();

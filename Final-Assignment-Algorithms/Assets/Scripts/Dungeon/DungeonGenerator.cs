@@ -16,6 +16,8 @@ public class DungeonGenerator : DungeonSettings
     private RectInt BaseRoom;
     [SerializeField]
     private RectInt maximumRoomSize;
+    [SerializeField, Min(3)]
+    private int doorMinWallSize = 10;
 
     private RectInt CurrentRoom;
     private RectInt currentDoor;
@@ -33,6 +35,10 @@ public class DungeonGenerator : DungeonSettings
     [SerializeField]
     private int seed = 0;
 
+    [Space(10)]
+    [SerializeField]
+    private bool generateOnStartUp = false;
+
     private DungeonGraphController graphController;
     private TileMapGenerator tileMapGen;
     private MarchingSquareSpawner marchingSquares;
@@ -42,7 +48,7 @@ public class DungeonGenerator : DungeonSettings
 
     private Random random = new Random();
 
-    private void Start()
+    private void Awake()
     {
         graphController = GetComponent<DungeonGraphController>();
         tileMapGen = GetComponent<TileMapGenerator>();
@@ -51,6 +57,12 @@ public class DungeonGenerator : DungeonSettings
         tileGraphGen = GetComponent<TileGraphGenerator>();
         simpleAssets = GetComponent<DungeonAddAssets>();
     }
+
+    private void Start()
+    {
+        if (generateOnStartUp) GenerateDungeonWithDoors();
+    }
+
     private void Update()
     {
         for (int i = 0; i < toDoRooms.Count; i++)
@@ -179,12 +191,12 @@ public class DungeonGenerator : DungeonSettings
             for (int j = i + 1; j < doneRooms.Count; j++)
             {
                 RectInt door = AlgorithmsUtils.Intersect(doneRooms[i], doneRooms[j]);
-                if (door.height > 10)
+                if (door.height > doorMinWallSize)
                 {
                     door.y += door.height / 2 - 1;
                     door.height = 3;
                 }
-                else if (door.width > 10)
+                else if (door.width > doorMinWallSize)
                 {
                     door.x += door.width / 2 - 1;
                     door.width = 3;

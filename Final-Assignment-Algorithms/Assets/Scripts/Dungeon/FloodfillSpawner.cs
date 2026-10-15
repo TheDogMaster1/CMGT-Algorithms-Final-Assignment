@@ -33,7 +33,7 @@ public class FloodfillSpawner : DungeonSettings
     private int[,] _tileMap;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         dGen = GetComponent<DungeonGenerator>();
         tileMapGenerator = GetComponent<TileMapGenerator>();

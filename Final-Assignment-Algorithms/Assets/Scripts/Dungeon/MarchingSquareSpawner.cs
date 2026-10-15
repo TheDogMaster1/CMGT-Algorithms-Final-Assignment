@@ -19,7 +19,7 @@ public class MarchingSquareSpawner : DungeonSettings
     private HashSet<Vector3> wallSpawns = new();
 
     private RectInt marchingSquare;
-    private void Start()
+    private void Awake()
     {
         dGen = GetComponent<DungeonGenerator>();
         tileMapGenerator = GetComponent<TileMapGenerator>();

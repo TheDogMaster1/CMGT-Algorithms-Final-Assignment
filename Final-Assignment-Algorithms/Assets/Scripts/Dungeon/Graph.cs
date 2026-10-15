@@ -10,7 +10,7 @@ public class Graph<T>
     }
 
     public void ClearGraph()
-    {
+    {   
         nodeList.Clear();
     }
 

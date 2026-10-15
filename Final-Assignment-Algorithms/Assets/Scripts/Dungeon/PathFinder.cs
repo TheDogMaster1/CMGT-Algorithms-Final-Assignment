@@ -24,7 +24,7 @@ public class PathFinder : MonoBehaviour
 
     public Algorithms algorithm = Algorithms.BFS;
 
-    void Start()
+    void Awake()
     {
         graphGenerator = GetComponent<TileGraphGenerator>();
     }

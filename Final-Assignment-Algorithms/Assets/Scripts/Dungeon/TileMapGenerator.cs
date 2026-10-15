@@ -15,7 +15,7 @@ public class TileMapGenerator : MonoBehaviour
 
     private int[,] _tileMap;
 
-    private void Start()
+    private void Awake()
     {
         dungeonGenerator = GetComponent<DungeonGenerator>();
     }
