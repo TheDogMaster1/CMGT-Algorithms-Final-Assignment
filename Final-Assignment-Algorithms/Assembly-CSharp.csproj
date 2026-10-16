@@ -72,21 +72,50 @@
     <Compile Include="Assets\Scripts\Dungeon\TileGraphGenerator.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
     <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />
+    <Compile Include="Assets\Scripts\Presenters\AbstractHPPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\FloodfillSpawner.cs" />
+    <Compile Include="Assets\Scripts\Presenters\HPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
     <Compile Include="Assets\Scripts\Player\FollowPathController.cs" />
+    <Compile Include="Assets\Scripts\Util\GameEventDataBase.cs" />
+    <Compile Include="Assets\Scripts\Util\EventBus.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\Dungeon\MarchingSquareSpawner.cs" />
+    <Compile Include="Assets\Scripts\Controllers\HpController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Assets\dungeon-pack-free_version\VERSION.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Assets\dungeon-pack-free_version\README.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\DebugDrawingExtension\readme.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Assets\dungeon-pack-free_version\LICENCE.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
