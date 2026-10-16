@@ -1,26 +1,22 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
     [SerializeField]
-    private float movementSpeed;
+    private PlayerData playerData;
 
-    private Vector2 moveVector;
-    private void Start()
+    public static Action<PlayerData> OnPlayerHit;
+
+    public void OnHit(PlayerData playerData, DamageData damageData)
     {
-        rb = GetComponent<Rigidbody2D>();
+        playerData.currentHp -= damageData.damage;
+        OnPlayerHit?.Invoke(playerData);
+        Debug.Log("Damaged");
     }
-
-    private void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        rb.linearVelocity = moveVector * movementSpeed;
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        moveVector = context.ReadValue<Vector2>();
+        Debug.Log("hit");
+        OnHit(playerData, playerData.damageData);
     }
 }

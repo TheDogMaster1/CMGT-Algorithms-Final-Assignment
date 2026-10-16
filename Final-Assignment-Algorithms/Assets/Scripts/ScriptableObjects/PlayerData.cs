@@ -5,6 +5,7 @@ public class PlayerData : ScriptableObject
 {
     public int maxHp;
     public int currentHp;
+    public DamageData damageData;
 
     private void OnEnable()
     {

@@ -75,10 +75,11 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
     <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />
-    <Compile Include="Assets\Scripts\Presenters\AbstractHPPresenter.cs" />
+    <Compile Include="Assets\Scripts\Player\Observer\PlayerMoveController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\FloodfillSpawner.cs" />
     <Compile Include="Assets\Scripts\Presenters\HPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
+    <Compile Include="Assets\Scripts\Util\DamageData.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
     <Compile Include="Assets\Scripts\Player\FollowPathController.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Assets\Scripts\Util\EventBus.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\Dungeon\MarchingSquareSpawner.cs" />
-    <Compile Include="Assets\Scripts\Controllers\HpController.cs" />
+    <Compile Include="Assets\Scripts\Player\Observer\PlayerObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
