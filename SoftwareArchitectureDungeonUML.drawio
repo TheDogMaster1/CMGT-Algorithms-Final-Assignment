@@ -1,11 +1,21 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Pagina-1" id="2pr1A9IBrHDraZEM_ej3">
-    <mxGraphModel dx="1178" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1414" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="uIJR_cu7E7cQJDbCfrED-28" edge="1" parent="1" source="uIJR_cu7E7cQJDbCfrED-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" target="uIJR_cu7E7cQJDbCfrED-24" value="">
+        <mxCell id="uIJR_cu7E7cQJDbCfrED-28" edge="1" parent="1" source="uIJR_cu7E7cQJDbCfrED-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;startArrow=diamondThin;startFill=0;endSize=6;startSize=20;" target="uIJR_cu7E7cQJDbCfrED-24" value="">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FKLCYcPSucT5FZ4MnXP_-1" connectable="0" parent="uIJR_cu7E7cQJDbCfrED-28" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;div&gt;1&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.3455" y="-1" as="geometry">
+            <mxPoint x="16" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FKLCYcPSucT5FZ4MnXP_-2" connectable="0" parent="uIJR_cu7E7cQJDbCfrED-28" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.5455" y="-4" as="geometry">
+            <mxPoint x="-15" y="-6" as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="uIJR_cu7E7cQJDbCfrED-20" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;PlayerController&lt;/div&gt;" vertex="1">
           <mxGeometry height="140" width="140" x="500" y="260" as="geometry" />
