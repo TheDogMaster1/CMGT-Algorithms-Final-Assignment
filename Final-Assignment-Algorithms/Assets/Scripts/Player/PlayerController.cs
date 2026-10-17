@@ -6,17 +6,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
 
-    public static Action<PlayerData> OnPlayerHit;
+    public static Action<PlayerData, Enemy> OnPlayerHit;
 
-    public void OnHit(PlayerData playerData, DamageData damageData)
+    private void OnHit(Enemy enemy)
     {
-        playerData.currentHp -= damageData.damage;
-        OnPlayerHit?.Invoke(playerData);
+        if (!playerData.invulnerable)
+        {
+            playerData.currentHp -= enemy.DamageData.damage;
         Debug.Log("Damaged");
+        }
+        OnPlayerHit?.Invoke(playerData, enemy);
+            playerData.invulnerable = true;
+        Invoke("StopInvulnerability", playerData.invulnerabilityTime);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void StopInvulnerability()
     {
-        Debug.Log("hit");
-        OnHit(playerData, playerData.damageData);
+        playerData.invulnerable = false;
+    }
+
+    private void OnEnable()
+    {
+        EnemyController.onPlayerHit += OnHit;   
+    }
+
+    private void OnDisable()
+    {
+        EnemyController.onPlayerHit -= OnHit;
     }
 }

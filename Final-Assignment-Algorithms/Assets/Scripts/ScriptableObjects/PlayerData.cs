@@ -1,19 +1,12 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "Scriptable Objects/PlayerData")]
-public class PlayerData : ScriptableObject
+[Serializable]
+public class PlayerData 
 {
     public int maxHp;
     public int currentHp;
+    public float invulnerabilityTime;
+    public bool invulnerable = false;
     public DamageData damageData;
-
-    private void OnEnable()
-    {
-        ResetHP();
-    }
-
-    public void ResetHP()
-    {
-        currentHp = maxHp;
-    }
 }

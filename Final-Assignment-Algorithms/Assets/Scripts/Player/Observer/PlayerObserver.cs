@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class PlayerObserver : MonoBehaviour
 {
-    public abstract void OnPlayerHit(PlayerData playerData);
+    public abstract void OnPlayerHit(PlayerData playerData, Enemy enemy);
 
     private void OnEnable()
     {

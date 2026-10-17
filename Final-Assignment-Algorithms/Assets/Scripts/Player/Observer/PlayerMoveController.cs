@@ -7,8 +7,12 @@ public class PlayerMoveController : PlayerObserver
 
     [SerializeField]
     private float movementSpeed;
+    [SerializeField]
+    private float kbForce;
 
     private Vector2 moveVector;
+
+    private bool inKnockBack = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -16,7 +20,7 @@ public class PlayerMoveController : PlayerObserver
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveVector * movementSpeed;
+        if(!inKnockBack) rb.linearVelocity = moveVector * movementSpeed;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -24,8 +28,18 @@ public class PlayerMoveController : PlayerObserver
         moveVector = context.ReadValue<Vector2>();
     }
 
-    public override void OnPlayerHit(PlayerData playerData)
+    public override void OnPlayerHit(PlayerData playerData, Enemy enemy)
     {
-        //used for knockback later
+        inKnockBack = true;
+        Vector2 kbVector = (transform.position - enemy.EnemyPos.position).normalized;
+        kbVector.x = Mathf.Round(kbVector.x); 
+        kbVector.y = Mathf.Round(kbVector.y);
+        rb.AddForce(kbVector.normalized * kbForce, ForceMode2D.Impulse);
+        Invoke("RegainControl", 0.07f);
+    }
+
+    private void RegainControl()
+    {
+        inKnockBack = false;
     }
 }

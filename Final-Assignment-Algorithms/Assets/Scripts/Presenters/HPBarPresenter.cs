@@ -5,7 +5,7 @@ public class HPBarPresenter : PlayerObserver
 {
     [SerializeField]
     private Image hpBar;
-    public override void OnPlayerHit(PlayerData playerData)
+    public override void OnPlayerHit(PlayerData playerData, Enemy enemy)
     {
         hpBar.fillAmount = (float)playerData.currentHp / (float)playerData.maxHp;
     }

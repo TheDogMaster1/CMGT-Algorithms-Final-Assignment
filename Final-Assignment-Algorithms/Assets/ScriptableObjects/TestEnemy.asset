@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747d1d45965b1134ca7f470071d0fac0, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 897c3befd60ba014eb7704dd5e1bba10, type: 3}
+  m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  maxHp: 10
-  currentHp: 10
+  maxHP: 10
+  Speed: 1
   damageData:
     damage: 1
