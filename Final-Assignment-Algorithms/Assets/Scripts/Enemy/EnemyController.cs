@@ -7,21 +7,41 @@ public class EnemyController : MonoBehaviour
     private EnemyData enemyData;
     private Enemy enemy;
 
-    public static Action<Enemy> onPlayerHit;
+    private int enemyState = 0;
+
+    public Action<Transform, Enemy> onPlayerFound;
+    public Action onPlayerLost;
 
     void Start()
     {
         enemy = enemyData.CreateEnemy(transform);
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Collided with " +  collision.gameObject.name);
-            onPlayerHit?.Invoke(enemy);
+            if (enemyState == 0) //detected
+            {
+                onPlayerFound?.Invoke(collision.transform, enemy);
+            }
+            else //hit
+            {
+                EventBus<PlayerHitEvent>.Publish(new PlayerHitEvent(enemy, gameObject));
+            }
+            enemyState++;
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            enemyState--;
+            if (enemyState == 0)
+            {
+                onPlayerLost?.Invoke();
+            }
+        }
+    }
 }

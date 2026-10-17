@@ -2,15 +2,17 @@ using UnityEngine;
 
 public abstract class PlayerObserver : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerController playerController;
     public abstract void OnPlayerHit(PlayerData playerData, Enemy enemy);
 
     private void OnEnable()
     {
-        PlayerController.OnPlayerHit += OnPlayerHit;
+        playerController.OnPlayerHit += OnPlayerHit;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnPlayerHit -= OnPlayerHit;
+        playerController.OnPlayerHit -= OnPlayerHit;
     }
 }

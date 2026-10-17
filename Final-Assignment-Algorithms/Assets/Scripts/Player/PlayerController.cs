@@ -6,16 +6,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
 
-    public static Action<PlayerData, Enemy> OnPlayerHit;
+    public Action<PlayerData, Enemy> OnPlayerHit;
 
-    private void OnHit(Enemy enemy)
+    private void OnHit(PlayerHitEvent playerHitEvent)
     {
         if (!playerData.invulnerable)
         {
-            playerData.currentHp -= enemy.DamageData.damage;
+            playerData.currentHp -= playerHitEvent.enemy.DamageData.damage;
         Debug.Log("Damaged");
         }
-        OnPlayerHit?.Invoke(playerData, enemy);
+        OnPlayerHit?.Invoke(playerData, playerHitEvent.enemy);
             playerData.invulnerable = true;
         Invoke("StopInvulnerability", playerData.invulnerabilityTime);
     }
@@ -27,11 +27,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyController.onPlayerHit += OnHit;   
+        EventBus<PlayerHitEvent>.OnEventPublished += OnHit;
     }
 
     private void OnDisable()
     {
-        EnemyController.onPlayerHit -= OnHit;
+        EventBus<PlayerHitEvent>.OnEventPublished -= OnHit;
     }
 }

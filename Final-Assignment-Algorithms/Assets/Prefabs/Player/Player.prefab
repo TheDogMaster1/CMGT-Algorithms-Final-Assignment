@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 6557797204665250505}
   - component: {fileID: 2625884614297415964}
   - component: {fileID: 475449430937757483}
+  - component: {fileID: 5134653304829666702}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -247,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1a3e52d9c909545abf74b4ed7bbb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 2625884614297415964}
   movementSpeed: 5
   kbForce: 20
 --- !u!114 &2625884614297415964
@@ -264,7 +266,7 @@ MonoBehaviour:
   playerData:
     maxHp: 10
     currentHp: 10
-    invulnerabilityTime: 0.5
+    invulnerabilityTime: 1
     invulnerable: 0
     damageData:
       damage: 1
@@ -280,7 +282,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79102c457e206b4dad47ae2389f1a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 2625884614297415964}
   hpBar: {fileID: 0}
+--- !u!114 &5134653304829666702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778179770061875216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122bece3dc6be204d93e26246c5a0da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2625884614297415964}
+  _animator: {fileID: 0}
 --- !u!1 &5775939279487836379
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,15 @@
+using UnityEngine;
+
 public class PlayerHitEvent : EventData
 {
-    public readonly int damage;
+    public Enemy enemy;
 
-    public PlayerHitEvent(int pDamage)
+    public GameObject enemyObject;
+
+    public PlayerHitEvent(Enemy pEnemy, GameObject pEnemyObject)
     {
-        damage = pDamage;
+        name = "PlayerHitEvent";
+        enemy = pEnemy;
+        enemyObject = pEnemyObject;
     }
 }
