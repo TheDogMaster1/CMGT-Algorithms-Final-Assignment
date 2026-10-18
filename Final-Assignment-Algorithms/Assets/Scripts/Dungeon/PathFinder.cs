@@ -24,9 +24,10 @@ public class PathFinder : MonoBehaviour
 
     public Algorithms algorithm = Algorithms.BFS;
 
-    void Awake()
+    void Start()
     {
-        graphGenerator = GetComponent<TileGraphGenerator>();
+        graphGenerator = GameObject.FindGameObjectWithTag("DungeonGenerator").GetComponent<TileGraphGenerator>();
+        graph = graphGenerator.GetGraph();
     }
 
     private Vector3 GetClosestNodeToPosition(Vector3 position)

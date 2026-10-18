@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 245088753}
   m_Layer: 0
   m_Name: --Dungeon Generator--
-  m_TagString: Untagged
+  m_TagString: DungeonGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,6 +590,8 @@ GameObject:
   - component: {fileID: 683315427}
   - component: {fileID: 683315428}
   - component: {fileID: 683315430}
+  - component: {fileID: 683315432}
+  - component: {fileID: 683315431}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -788,8 +790,21 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 5
 --- !u!114 &683315430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683315423}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9301408850e6f494fbdc3e9e841f3204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyController: {fileID: 683315428}
+--- !u!114 &683315431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -798,10 +813,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 683315423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9301408850e6f494fbdc3e9e841f3204, type: 3}
+  m_Script: {fileID: 11500000, guid: c9794a6812e1d6e478e9cff6a8fcd1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &683315432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683315423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9aa2aeb278eddd45b7bdd5f31b1895f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 683315428}
+  path: []
+  posUpdateFrequency: 1
 --- !u!1 &771145134
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class FollowPlayerEnemyMoveStrategy : AbstractEnemyMovingStrategy
         rb.linearVelocity = moveVector * speed;
     }
 
-    public override void PlayerFound(Transform pPlayerPos, Enemy enemy)
+    public override void PlayerFound(Transform pPlayerPos)
     {
         playerPos = pPlayerPos;
         speed = enemy.Speed;

@@ -4,12 +4,9 @@ public class PlayerHitEvent : EventData
 {
     public Enemy enemy;
 
-    public GameObject enemyObject;
-
-    public PlayerHitEvent(Enemy pEnemy, GameObject pEnemyObject)
+    public PlayerHitEvent(Enemy pEnemy)
     {
         name = "PlayerHitEvent";
         enemy = pEnemy;
-        enemyObject = pEnemyObject;
     }
 }

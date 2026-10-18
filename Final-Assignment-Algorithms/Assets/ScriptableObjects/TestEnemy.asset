@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
   maxHP: 10
-  Speed: 1
+  Speed: 2
   damageData:
     damage: 1

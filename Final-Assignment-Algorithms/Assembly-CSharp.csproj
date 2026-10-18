@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Player\MouseClickController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\PathFindMovingStrategy.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFinder.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileMapGenerator.cs" />
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />
@@ -84,12 +85,17 @@
     <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
     <Compile Include="Assets\Scripts\Enemy\FollowPlayerEnemyMoveStrategy.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DijkstraPathFindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\AStarPathFindingalgorithm.cs" />
     <Compile Include="Assets\Scripts\Player\FollowPathController.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\BFSPathFindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Util\GameEventDataBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\AbstractEnemyMovingStrategy.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\AbstractPathFinderAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Util\EventBus.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DFSPathFindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Dungeon\MarchingSquareSpawner.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\HitVFXController.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerObserver.cs" />
