@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class playerAnimationController : MonoBehaviour
+public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
     void Start()

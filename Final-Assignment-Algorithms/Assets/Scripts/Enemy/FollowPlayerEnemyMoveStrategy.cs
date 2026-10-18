@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class FollowPlayerEnemyMoveStrategy : AbstractEnemyMovingStrategy 
 {
-    private Rigidbody2D rb;
     private Vector2 moveVector;
     private Transform playerPos = null;
     private float speed = 0;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     private void FixedUpdate()
     {

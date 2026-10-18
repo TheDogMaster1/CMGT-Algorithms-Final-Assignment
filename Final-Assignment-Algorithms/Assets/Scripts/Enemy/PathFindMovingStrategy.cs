@@ -17,6 +17,8 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
     private bool isMoving = false;
     private bool playerFound = false;
 
+    private Vector2 moveVector = Vector2.zero;
+
     [SerializeField]
     private float posUpdateFrequency = 0.5f;
 
@@ -40,6 +42,12 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
         //GoToDestination(playerPos.position);
        StartCoroutine(UpdatePosition(pPlayer));
     }
+
+    private void FixedUpdate()
+    {
+        rb.linearVelocity = moveVector * enemy.Speed;
+    }
+
     private IEnumerator UpdatePosition(Transform player)
     {
         while (playerFound)
@@ -51,6 +59,8 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
     public override void PlayerLost()
     {
         StopAllCoroutines();
+        moveVector = Vector3.zero;
+        onMove?.Invoke(moveVector);
         playerFound= false;
         isMoving = false;
     }
@@ -111,13 +121,13 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
         {
             Vector3 target = path[i];
             // Move towards the target position
+            onMove?.Invoke(rb.linearVelocity);
             while (Vector3.Distance(transform.position, target) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * enemy.Speed);
+                moveVector = (target - transform.position).normalized;
                 yield return null;
             }
-
-            Debug.Log($"Reached target: {target}");
+            //Debug.Log($"Reached target: {target}");
         }
         isMoving = false;
     }

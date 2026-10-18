@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Dungeon\DungeonSettings.cs" />
     <Compile Include="Assets\DebugDrawingExtension\Example\Example.cs" />
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyAnimationController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Player\MouseClickController.cs" />
     <Compile Include="Assets\Scripts\Enemy\PathFindMovingStrategy.cs" />
@@ -77,8 +78,8 @@
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
-    <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerMoveController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\FloodfillSpawner.cs" />
     <Compile Include="Assets\Scripts\Presenters\HPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Util\DamageData.cs" />
