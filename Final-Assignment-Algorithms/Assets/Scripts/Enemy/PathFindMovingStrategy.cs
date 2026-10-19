@@ -121,10 +121,10 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
         {
             Vector3 target = path[i];
             // Move towards the target position
-            onMove?.Invoke(rb.linearVelocity);
             while (Vector3.Distance(transform.position, target) > 0.1f)
             {
                 moveVector = (target - transform.position).normalized;
+            onMove?.Invoke(moveVector.normalized);
                 yield return null;
             }
             //Debug.Log($"Reached target: {target}");

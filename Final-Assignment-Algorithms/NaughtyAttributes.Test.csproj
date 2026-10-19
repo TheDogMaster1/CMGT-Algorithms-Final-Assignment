@@ -62,41 +62,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ReadOnlyTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\OnValueChangedTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\LabelTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ValidateInputTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\EnumFlagsTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ExpandableTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\EnableIfTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\HideIfTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_NaughtyComponent.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_TestScriptableObjectA.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\RequiredTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowAssetPreviewTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ResizableTextAreaTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_TestScriptableObjectB.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\DisableIfTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\MinMaxValueTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\SortingLayerTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\AnimatorParamTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowIfTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\InputAxisTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\MinMaxSliderTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ProgressBarTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ButtonTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\CurveRangeTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowNativePropertyTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\InfoBoxTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\TagTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_NaughtyScriptableObject.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\OnValueChangedTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\EnumFlagsTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ExpandableTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\EnableIfTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_NaughtyComponent.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\RequiredTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowAssetPreviewTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_TestScriptableObjectB.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\MinMaxValueTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\SortingLayerTest.cs" />
+    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\AnimatorParamTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\LayerTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowNonSerializedFieldTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ReorderableListTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\SceneTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\ShowNativePropertyTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\InfoBoxTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\HorizontalLineTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\BoxGroupTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\FoldoutTest.cs" />
     <Compile Include="Assets\NaughtyAttributes\Scripts\Test\DropdownTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\TagTest.cs" />
-    <Compile Include="Assets\NaughtyAttributes\Scripts\Test\_NaughtyScriptableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NaughtyAttributes\Scripts\Test\NaughtyAttributes.Test.asmdef" />
@@ -584,6 +584,22 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@031a54704bff\net40\unity-custom\nunit.framework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil@d78732e851eb\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Hashing">
+      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
