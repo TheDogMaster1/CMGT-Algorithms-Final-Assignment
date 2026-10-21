@@ -10,7 +10,7 @@ public class HitVFXController : PlayerObserver
         _animator = GetComponentInChildren<Animator>();
     }
 
-    public override void OnPlayerHit(PlayerData playerData, Enemy enemy)
+    protected override void OnPlayerHit(PlayerData playerData, Enemy enemy)
     {
         if (playerData.invulnerable) return;
         _animator.Play("PlayerHit");

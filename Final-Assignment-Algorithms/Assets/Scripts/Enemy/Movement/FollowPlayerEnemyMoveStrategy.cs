@@ -15,12 +15,17 @@ public class FollowPlayerEnemyMoveStrategy : AbstractEnemyMovingStrategy
         rb.linearVelocity = moveVector * speed;
     }
 
-    public override void PlayerFound(Transform pPlayerPos)
+    protected override void OnEnemyHit(Enemy enemy, Transform playerTransform)
+    {
+        //nuthing
+    }
+
+    protected override void PlayerFound(Transform pPlayerPos)
     {
         playerPos = pPlayerPos;
         speed = enemy.Speed;
     }
-    public override void PlayerLost()
+    protected override void PlayerLost()
     {
         Debug.Log("player lost");
         rb.linearVelocity = Vector2.zero;

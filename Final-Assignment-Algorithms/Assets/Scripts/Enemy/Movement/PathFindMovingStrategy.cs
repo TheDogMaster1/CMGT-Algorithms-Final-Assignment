@@ -16,11 +16,14 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
 
     private bool isMoving = false;
     private bool playerFound = false;
+    private bool inKnockBack = false;
 
     private Vector2 moveVector = Vector2.zero;
 
     [SerializeField]
     private float posUpdateFrequency = 0.5f;
+    [SerializeField]
+    private float kbForce = 20f;
 
     Coroutine lastDestination = null;
 
@@ -36,16 +39,44 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
     }
 
 
-    public override void PlayerFound(Transform pPlayer)
+    protected override void PlayerFound(Transform pPlayer)
     {
         playerFound = true;
         //GoToDestination(playerPos.position);
        StartCoroutine(UpdatePosition(pPlayer));
     }
+    protected override void PlayerLost()
+    {
+        StopAllCoroutines();
+        moveVector = Vector3.zero;
+        onMove?.Invoke(moveVector);
+        playerFound= false;
+        isMoving = false;
+    }
+
+    protected override void OnEnemyHit(Enemy enemy, Transform playerTransform)
+    {
+        inKnockBack = true;
+        rb.linearVelocity = Vector2.zero;
+        Vector2 kbVector = (transform.position - playerTransform.position).normalized;
+        kbVector.x = Mathf.Round(kbVector.x);
+        kbVector.y = Mathf.Round(kbVector.y);
+        rb.AddForce(kbVector.normalized * kbForce, ForceMode2D.Impulse);
+        StartCoroutine(BeStunned());
+    }
+
+    private IEnumerator BeStunned()
+    {
+        yield return new WaitForSeconds(0.07f);
+        rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(.5f);
+        inKnockBack= false;
+    }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveVector * enemy.Speed;
+        if(!inKnockBack) rb.linearVelocity = moveVector * enemy.Speed;
+        //Debug.Log(enemy);
     }
 
     private IEnumerator UpdatePosition(Transform player)
@@ -55,14 +86,6 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
             GoToDestination(player.position);
             yield return new WaitForSeconds(posUpdateFrequency);
         }
-    }
-    public override void PlayerLost()
-    {
-        StopAllCoroutines();
-        moveVector = Vector3.zero;
-        onMove?.Invoke(moveVector);
-        playerFound= false;
-        isMoving = false;
     }
     private void GoToDestination(Vector3 destination)
     {
@@ -117,7 +140,7 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
             yield break;
         }
         isMoving = true;
-        for (int i = 0; i < path.Count; i++)
+        for (int i = 1; i < path.Count; i++)
         {
             Vector3 target = path[i];
             // Move towards the target position

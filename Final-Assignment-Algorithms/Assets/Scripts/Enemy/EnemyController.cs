@@ -9,14 +9,26 @@ public class EnemyController : MonoBehaviour
 
     private int enemyState = 0;
 
-    public Action<Enemy> onEnemyCreated;
-    public Action<Transform> onPlayerFound;
-    public Action onPlayerLost;
+    public event Action<Enemy> onEnemyCreated;
+    public event Action<Enemy, Transform> onHit;
+
+    public event Action<Transform> onPlayerFound;
+    public event Action onPlayerLost;
 
     void Start()
     {
         enemy = enemyData.CreateEnemy(transform);
-        onEnemyCreated.Invoke(enemy);
+        onEnemyCreated?.Invoke(enemy);
+    }
+
+    public void GetHit(PlayerData playerData, Transform playerTransform)
+    {
+        enemy.currentHP -= playerData.damageData.damage;
+        if (enemy.currentHP < 0)
+        {
+            enemy.currentHP = 0;
+        }
+        onHit.Invoke(enemy, playerTransform);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

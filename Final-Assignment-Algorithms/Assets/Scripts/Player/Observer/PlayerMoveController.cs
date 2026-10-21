@@ -28,7 +28,7 @@ public class PlayerMoveController : PlayerObserver
         moveVector = context.ReadValue<Vector2>();
     }
 
-    public override void OnPlayerHit(PlayerData playerData, Enemy enemy)
+    protected override void OnPlayerHit(PlayerData playerData, Enemy enemy)
     {
         inKnockBack = true;
         Vector2 kbVector = (transform.position - enemy.EnemyPos.position).normalized;

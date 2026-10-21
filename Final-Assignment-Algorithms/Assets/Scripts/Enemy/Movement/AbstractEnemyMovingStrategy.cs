@@ -10,18 +10,21 @@ public abstract class AbstractEnemyMovingStrategy : MonoBehaviour
     [SerializeField]
     protected Rigidbody2D rb;
     public Action<Vector2> onMove;
-    private void OnEnemyCreated(Enemy pEnemy) 
+    protected void OnEnemyCreated(Enemy pEnemy) 
     {
         enemy = pEnemy;
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public abstract void PlayerFound(Transform pPlayerPos);
-    public abstract void PlayerLost();
+    protected abstract void OnEnemyHit(Enemy enemy, Transform playerTransform);
+
+    protected abstract void PlayerFound(Transform pPlayerPos);
+    protected abstract void PlayerLost();
 
     private void OnEnable()
     {
         enemyController.onEnemyCreated += OnEnemyCreated;
+        enemyController.onHit += OnEnemyHit;
         enemyController.onPlayerFound += PlayerFound;
         enemyController.onPlayerLost += PlayerLost;
     }
@@ -29,6 +32,7 @@ public abstract class AbstractEnemyMovingStrategy : MonoBehaviour
     private void OnDisable()
     {
         enemyController.onEnemyCreated -= OnEnemyCreated;
+        enemyController.onHit -= OnEnemyHit;
         enemyController.onPlayerFound -= PlayerFound;
         enemyController.onPlayerLost -= PlayerLost;
     }

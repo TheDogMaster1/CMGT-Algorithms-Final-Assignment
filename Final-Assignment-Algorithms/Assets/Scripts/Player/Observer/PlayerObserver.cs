@@ -4,15 +4,15 @@ public abstract class PlayerObserver : MonoBehaviour
 {
     [SerializeField]
     private PlayerController playerController;
-    public abstract void OnPlayerHit(PlayerData playerData, Enemy enemy);
+    protected abstract void OnPlayerHit(PlayerData playerData, Enemy enemy);
 
     private void OnEnable()
     {
-        playerController.OnPlayerHit += OnPlayerHit;
+        playerController.onPlayerHit += OnPlayerHit;
     }
 
     private void OnDisable()
     {
-        playerController.OnPlayerHit -= OnPlayerHit;
+        playerController.onPlayerHit -= OnPlayerHit;
     }
 }
