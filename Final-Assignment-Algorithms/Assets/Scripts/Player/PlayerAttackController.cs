@@ -15,10 +15,10 @@ public class PlayerAttackController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 moveVector = context.ReadValue<Vector2>();
-        if (moveVector.y > 0f)  attackHitBox.offset = new Vector2(0, 1) / 2;
-        if (moveVector.y < 0f)  attackHitBox.offset = new Vector2(0, -1) / 2; 
-        if (moveVector.x > 0f)  attackHitBox.offset = new Vector2(1, 0) / 2;
-        if (moveVector.x < 0f)  attackHitBox.offset = new Vector2(-1, 0) / 2;
+        if (moveVector.y > 0f)  attackHitBox.offset = new Vector2(0, 1) / 3;
+        if (moveVector.y < 0f)  attackHitBox.offset = new Vector2(0, -1) / 3; 
+        if (moveVector.x > 0f)  attackHitBox.offset = new Vector2(1, 0) / 3;
+        if (moveVector.x < 0f)  attackHitBox.offset = new Vector2(-1, 0) / 3;
     }
 
     private void OnAttack()
