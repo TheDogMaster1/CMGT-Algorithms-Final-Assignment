@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   maxHP: 2
-  Speed: 2
+  speed: 2
+  xp: 883
+  money: 100
   damageData:
     damage: 1

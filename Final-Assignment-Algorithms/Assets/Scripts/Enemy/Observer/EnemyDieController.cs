@@ -12,10 +12,12 @@ public class EnemyDieController : EnemyObserver
     {
         if (!isDead)
         {
-            if(enemy.currentHP <= 0)
+            if (enemy.currentHP <= 0)
             {
+                EventBus<EnemyDieEvent>.Publish(new EnemyDieEvent(enemy));
                 isDead = true;
                 Destroy(gameObject);
+
             }
         }
     }

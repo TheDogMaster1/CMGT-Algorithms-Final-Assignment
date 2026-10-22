@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
 {
     private TileGraphGenerator graphGenerator;
+    [SerializeField]
     private AbstractPathFinderAlgorithm algorithm;
 
     private Vector3 startNode;
@@ -32,7 +32,7 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
         graphGenerator = GameObject.FindGameObjectWithTag("DungeonGenerator").GetComponent<TileGraphGenerator>();
         graph = graphGenerator.GetGraph();
         algorithm = gameObject.GetComponent<AbstractPathFinderAlgorithm>();
-        if(algorithm == null)
+        if (algorithm == null)
         {
             throw new System.Exception("Enemy does not have a pathfinding algorithm");
         }
@@ -43,14 +43,14 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
     {
         playerFound = true;
         //GoToDestination(playerPos.position);
-       StartCoroutine(UpdatePosition(pPlayer));
+        StartCoroutine(UpdatePosition(pPlayer));
     }
     protected override void PlayerLost()
     {
         StopAllCoroutines();
         moveVector = Vector3.zero;
         onMove?.Invoke(moveVector);
-        playerFound= false;
+        playerFound = false;
         isMoving = false;
     }
 
@@ -70,12 +70,12 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
         yield return new WaitForSeconds(0.07f);
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(.5f);
-        inKnockBack= false;
+        inKnockBack = false;
     }
 
     private void FixedUpdate()
     {
-        if(!inKnockBack) rb.linearVelocity = moveVector * enemy.Speed;
+        if (!inKnockBack) rb.linearVelocity = moveVector * enemy.Speed;
         //Debug.Log(enemy);
     }
 
@@ -95,8 +95,8 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
             StopCoroutine(lastDestination);
             isMoving = false;
         }
-            
-       lastDestination = StartCoroutine(FollowPathCoroutine(CalculatePath(transform.position, destination)));
+
+        lastDestination = StartCoroutine(FollowPathCoroutine(CalculatePath(transform.position, destination)));
     }
     private Vector3 GetClosestNodeToPosition(Vector3 position)
     {
@@ -147,7 +147,7 @@ public class PathFindMovingStrategy : AbstractEnemyMovingStrategy
             while (Vector3.Distance(transform.position, target) > 0.1f)
             {
                 moveVector = (target - transform.position).normalized;
-            onMove?.Invoke(moveVector.normalized);
+                onMove?.Invoke(moveVector.normalized);
                 yield return null;
             }
             //Debug.Log($"Reached target: {target}");

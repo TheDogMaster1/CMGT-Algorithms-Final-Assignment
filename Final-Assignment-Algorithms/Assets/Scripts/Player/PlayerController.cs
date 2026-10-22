@@ -13,21 +13,16 @@ public class PlayerController : MonoBehaviour
         if (!playerData.invulnerable)
         {
             playerData.currentHp -= playerHitEvent.enemy.DamageData.damage;
-        Debug.Log("Damaged");
+            Debug.Log("Damaged");
+            playerData.invulnerable = true;
+            Invoke("StopInvulnerability", playerData.invulnerabilityTime);
         }
         onPlayerHit?.Invoke(playerData, playerHitEvent.enemy);
-            playerData.invulnerable = true;
-        Invoke("StopInvulnerability", playerData.invulnerabilityTime);
     }
 
     private void StopInvulnerability()
     {
         playerData.invulnerable = false;
-    }
-
-    public PlayerData GetPlayerData()
-    {
-        return playerData;
     }
 
     private void OnEnable()

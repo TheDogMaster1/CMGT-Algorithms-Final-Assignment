@@ -5,20 +5,20 @@ public class PlayerAttackController : MonoBehaviour
 {
     [SerializeField]
     private BoxCollider2D attackHitBox;
-    private PlayerController playerController;
+    private PlayerLevelController playerLevelController;
 
     private void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
+        playerLevelController = GetComponentInParent<PlayerLevelController>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 moveVector = context.ReadValue<Vector2>();
-        if (moveVector.y > 0f)  attackHitBox.offset = new Vector2(0, 1) / 3;
-        if (moveVector.y < 0f)  attackHitBox.offset = new Vector2(0, -1) / 3; 
-        if (moveVector.x > 0f)  attackHitBox.offset = new Vector2(1, 0) / 3;
-        if (moveVector.x < 0f)  attackHitBox.offset = new Vector2(-1, 0) / 3;
+        if (moveVector.y > 0f) attackHitBox.offset = new Vector2(0, 1) / 3;
+        if (moveVector.y < 0f) attackHitBox.offset = new Vector2(0, -1) / 3;
+        if (moveVector.x > 0f) attackHitBox.offset = new Vector2(1, 0) / 3;
+        if (moveVector.x < 0f) attackHitBox.offset = new Vector2(-1, 0) / 3;
     }
 
     private void OnAttack()
@@ -39,7 +39,7 @@ public class PlayerAttackController : MonoBehaviour
             EnemyController enemyController = collision.GetComponentInParent<EnemyController>();
             if (enemyController != null)
             {
-                enemyController.GetHit(playerController.GetPlayerData(), transform.parent.transform);
+                enemyController.GetHit(playerLevelController.GetDamageData(), transform.parent.transform);
             }
             else
             {

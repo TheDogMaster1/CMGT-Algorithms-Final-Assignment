@@ -1,0 +1,6 @@
+codereview playerandenemysystem
+
+use eventbus for quest system.
+
+idea:
+for the healthbar use a lerp to make it more juicy 

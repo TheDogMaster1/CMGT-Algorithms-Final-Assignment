@@ -21,9 +21,9 @@ public class EnemyController : MonoBehaviour
         onEnemyCreated?.Invoke(enemy);
     }
 
-    public void GetHit(PlayerData playerData, Transform playerTransform)
+    public void GetHit(DamageData damageData, Transform playerTransform)
     {
-        enemy.currentHP -= playerData.damageData.damage;
+        enemy.currentHP -= damageData.damage;
         if (enemy.currentHP < 0)
         {
             enemy.currentHP = 0;

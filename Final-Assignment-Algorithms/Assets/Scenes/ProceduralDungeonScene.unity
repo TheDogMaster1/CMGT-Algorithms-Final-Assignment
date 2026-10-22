@@ -609,7 +609,7 @@ MonoBehaviour:
   autoContinue: 1
   waitType: 0
   secondsToWait: 0
-  deletePercent: 0
+  deletePercent: 100
   showDFSGraph: 0
 --- !u!114 &2061578851
 MonoBehaviour:
