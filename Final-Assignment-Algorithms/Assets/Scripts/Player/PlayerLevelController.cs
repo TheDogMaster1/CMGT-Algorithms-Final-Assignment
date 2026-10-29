@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerLevelController : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class PlayerLevelController : MonoBehaviour
     [SerializeField]
     private int[] levelXpRequirements;
 
+    [SerializeField]
     private int currentXp = 0;
+
+    [SerializeField]
+    private Image xpBar;
 
     [Min(1)]
     private int currentLevel = 1;
@@ -24,6 +29,7 @@ public class PlayerLevelController : MonoBehaviour
     private void Start()
     {
         damageData = initialDamageData;
+        xpBar.fillAmount = 0;
     }
 
     private void OnEnemyDeath(EnemyDieEvent enemyDieEvent)
@@ -52,6 +58,12 @@ public class PlayerLevelController : MonoBehaviour
                 Debug.Log("leveled up to level " + currentLevel);
                 onLevelUp?.Invoke(currentLevel);
             }
+
+            if (currentLevel != levelXpRequirements.Length + 1)
+            {
+                xpBar.fillAmount = (float)currentXp / (float)levelXpRequirements[currentLevel - 1];
+            }
+            else xpBar.fillAmount = 1;
         }
     }
 

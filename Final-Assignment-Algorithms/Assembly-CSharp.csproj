@@ -75,9 +75,11 @@
     <Compile Include="Assets\Scripts\Util\DamageData.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DijkstraPathFindingAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\KillEnemyQuestData.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttackController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\BFSPathFindingAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\Quest.cs" />
     <Compile Include="Assets\Scripts\GameSystems\MoneyPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DFSPathFindingAlgorithm.cs" />

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 2
   speed: 2
-  xp: 883
+  xp: 1
   money: 100
   damageData:
     damage: 1

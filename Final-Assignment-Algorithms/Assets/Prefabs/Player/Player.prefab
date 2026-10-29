@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 2329624698986878630}
   - component: {fileID: 6557797204665250505}
   - component: {fileID: 2625884614297415964}
+  - component: {fileID: 2218402464671871179}
   - component: {fileID: 475449430937757483}
   - component: {fileID: 5134653304829666702}
   m_Layer: 0
@@ -269,8 +270,24 @@ MonoBehaviour:
     currentHp: 10
     invulnerabilityTime: 1
     invulnerable: 0
-    damageData:
-      damage: 1
+--- !u!114 &2218402464671871179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778179770061875216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c7fe9d0cee4fc4799c33f3554f5bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDamageData:
+    damage: 1
+  damageincrease: 1
+  levelXpRequirements: 010000000200000003000000
+  currentXp: 0
+  xpBar: {fileID: 0}
 --- !u!114 &475449430937757483
 MonoBehaviour:
   m_ObjectHideFlags: 0
