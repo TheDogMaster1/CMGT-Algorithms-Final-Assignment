@@ -19,3 +19,14 @@ public class EnemyDieEvent : EventData
         enemy = pEnemy;
     }
 }
+
+public class NewQuestChosenEvent : EventData
+{
+    public Quest quest;
+
+    public NewQuestChosenEvent(Quest pQuest)
+    {
+        name = "NewQuestChosenEvent";
+        quest = pQuest;
+    }
+}

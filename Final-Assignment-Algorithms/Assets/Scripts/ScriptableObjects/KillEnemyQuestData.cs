@@ -14,11 +14,13 @@ public class KillEnemyQuestData : Quest
 
     public override void StartQuest()
     {
+        base.StartQuest();
         EventBus<EnemyDieEvent>.OnEventPublished += OnEnemyDeath;
     }
 
     public override void StopQuest()
     {
+        base.StopQuest();
         EventBus<EnemyDieEvent>.OnEventPublished -= OnEnemyDeath;
     }
 

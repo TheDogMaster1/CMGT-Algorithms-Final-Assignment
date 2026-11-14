@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Dungeon\TileMapGenerator.cs" />
     <Compile Include="Assets\Scripts\Sample\HelloDebugDrawing.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\FollowPlayerEnemyMoveStrategy.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\QuestObject.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileGraphGenerator.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
     <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />

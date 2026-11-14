@@ -7,16 +7,38 @@ using UnityEngine.InputSystem;
 public class QuestGiver : MonoBehaviour
 {
     [SerializeField]
-    private List<Quest> Quests;
+    private List<Quest> quests;
 
     [SerializeField]
-    private GameObject QuestMenu;
+    private GameObject questMenu;
+    [SerializeField]
+    private Transform questsParent;
 
     [SerializeField]
-    private GameObject QuestUIPrefab;
+    private GameObject questUIPrefab;
 
-    private void OnInteract(InputAction.CallbackContext context)
+    private bool insideRadius = false;
+
+    public void OnInteract(InputAction.CallbackContext context)
     {
+        if (questMenu.activeSelf || !insideRadius || !context.started) return;
+        Debug.Log("Did stuff");
+        questMenu.SetActive(true);
 
+        foreach (Quest quest in quests)
+        {
+            QuestObject questObject = Instantiate(questUIPrefab, questsParent).GetComponent<QuestObject>();
+            questObject.Init(quest);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        insideRadius = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        insideRadius = false;
     }
 }

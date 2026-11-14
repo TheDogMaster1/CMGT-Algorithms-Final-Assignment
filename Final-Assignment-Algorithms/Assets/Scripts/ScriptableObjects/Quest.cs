@@ -7,8 +7,21 @@ public abstract class Quest : ScriptableObject
     public bool repeatable;
     //TO DO reward
 
-    public abstract void StartQuest();
+    //[HideInInspector]
+    public bool Started = false;
 
-    public abstract void StopQuest();
+    public virtual void StartQuest()
+    {
+        Started = true;
+    }
 
+    public virtual void StopQuest()
+    {
+        Started = false;
+    }
+
+    private void OnDisable()
+    {
+        Started = false;
+    }
 }
