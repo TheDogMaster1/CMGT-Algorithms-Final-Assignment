@@ -27,6 +27,7 @@ public class QuestObject : MonoBehaviour
         quest = pQuest;
         questTitle.text = quest.questName;
         questDescription.text = quest.questDescription;
+        UpdateButtons(new NewQuestChosenEvent(QuestController.instance.GetCurrentQuest().quest));
     }
 
     public void ChooseQuest()

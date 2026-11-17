@@ -26,6 +26,11 @@ public class QuestGiver : MonoBehaviour
         questMenu.SetActive(true);
         foreach (var quest in quests)
         {
+            if (quest == null)
+            {
+                Debug.LogError("No Quest has been set!");
+                return;
+            }
             QuestObject questObject = Instantiate(questUIPrefab, questsParent).GetComponent<QuestObject>();
             questObject.Init(quest);
         }

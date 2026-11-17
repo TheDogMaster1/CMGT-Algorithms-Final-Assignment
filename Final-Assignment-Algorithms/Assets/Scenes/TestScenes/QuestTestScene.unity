@@ -606,16 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quests:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 74f453a6b51a5d44b906fea8b6972672, type: 2}
   questMenu: {fileID: 591449386}
   questsParent: {fileID: 1509798389}
   questUIPrefab: {fileID: 5129813756084340458, guid: dc91f325aa7c9b44a9250dcc029e5252, type: 3}
