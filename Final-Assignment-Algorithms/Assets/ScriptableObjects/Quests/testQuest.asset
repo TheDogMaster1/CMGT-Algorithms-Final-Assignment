@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f8cd88e1ff18f448439399d0791e22, type: 3}
   m_Name: testQuest
   m_EditorClassIdentifier: 
-  questID: 
-  questName: 
-  questDescription: 
-  objectives: []
+  questID: Queste6b4a313-e4d9-4a4e-8e8f-dcc8decc7210
+  questName: Quest
+  questDescription: please kill some slimes pls pls pls psl
+  objectives:
+  - objectiveID: 0
+    description: Kill 5 slimes
+    type: 0
+    neededAmount: 5
+    currentAmount: 0
