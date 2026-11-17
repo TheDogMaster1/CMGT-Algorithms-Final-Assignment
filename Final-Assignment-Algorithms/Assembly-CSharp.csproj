@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAnimationController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\QuestObjective.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\PathFindMovingStrategy.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
@@ -75,7 +76,6 @@
     <Compile Include="Assets\Scripts\Util\DamageData.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGraphController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DijkstraPathFindingAlgorithm.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\KillEnemyQuestData.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Graph.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttackController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\BFSPathFindingAlgorithm.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerMoveController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Observer\EnemyDieController.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\QuestProgress.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\AbstractEnemyMovingStrategy.cs" />
     <Compile Include="Assets\Scripts\Enemy\Observer\EnemyObserver.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\AbstractPathFinderAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Player\Presenters\HPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Util\EventBus.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\QuestController.cs" />
     <Compile Include="Assets\Scripts\Dungeon\MarchingSquareSpawner.cs" />
   </ItemGroup>
   <ItemGroup>

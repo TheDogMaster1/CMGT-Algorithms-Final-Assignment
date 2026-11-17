@@ -1,27 +1,29 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Quest : ScriptableObject
+
+//used the tutorial from Game Code Library for this code https://www.youtube.com/watch?v=_hA3y45P4Ow&list=PLaaFfzxy_80HtVvBnpK_IjSC8_Y9AOhuP&index=27
+[CreateAssetMenu(fileName = "Quest", menuName = "Quests/Quest")]
+public class Quest : ScriptableObject
 {
+    public string questID;
     public string questName;
     public string questDescription;
-    public bool repeatable;
-    //TO DO reward
+    public List<QuestObjective> objectives;
 
-    //[HideInInspector]
-    public bool Started = false;
-
-    public virtual void StartQuest()
+    private void OnValidate()
     {
-        Started = true;
-    }
-
-    public virtual void StopQuest()
-    {
-        Started = false;
-    }
-
-    private void OnDisable()
-    {
-        Started = false;
+        if (string.IsNullOrEmpty(questID))
+        {
+            questID = questName + Guid.NewGuid().ToString();
+        }
     }
 }
+public enum EObjectiveType
+{
+    killEnemies,
+    collectGold
+}
+
+

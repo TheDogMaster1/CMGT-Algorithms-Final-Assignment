@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f981cc334cc90204f81df5735d390042, type: 3}
-  m_Name: KillEnemyQuestData
+  m_Script: {fileID: 11500000, guid: a9f8cd88e1ff18f448439399d0791e22, type: 3}
+  m_Name: testQuest
   m_EditorClassIdentifier: 
-  questName: kill some enemies pls
-  questDescription: kill some enemies pls
-  repeatable: 0
-  Started: 0
-  killsNeeded: 1
-  killsAmount: 0
+  questID: 
+  questName: 
+  questDescription: 
+  objectives: []

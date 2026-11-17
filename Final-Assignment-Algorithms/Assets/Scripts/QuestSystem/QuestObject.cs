@@ -14,11 +14,12 @@ public class QuestObject : MonoBehaviour
     private Button acceptQuestButton;
     [SerializeField]
     private Button abandonQuestButton;
+    [SerializeField]
+    private Button handInQuestButton;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
-        
+        EventBus<NewQuestChosenEvent>.OnEventPublished += UpdateButtons;
     }
 
     public void Init(Quest pQuest)
@@ -26,23 +27,50 @@ public class QuestObject : MonoBehaviour
         quest = pQuest;
         questTitle.text = quest.questName;
         questDescription.text = quest.questDescription;
-        if (quest.Started)
-        {
-            acceptQuestButton.gameObject.SetActive(true);
-            abandonQuestButton.gameObject.SetActive(false);
-        }
     }
 
     public void ChooseQuest()
     {
-        //EventBus<NewQuestChosenEvent>.Publish(new NewQuestChosenEvent(quest));
-        quest.StartQuest();
-        acceptQuestButton.gameObject.SetActive(false);
-        abandonQuestButton.gameObject.SetActive(true);
+        EventBus<NewQuestChosenEvent>.Publish(new NewQuestChosenEvent(quest));
+        QuestController.instance.SetQuest(quest);
     }
 
-    private void ChangeQuestButtons()
+    public void AbandonQuest()
     {
+        EventBus<NewQuestChosenEvent>.Publish(new NewQuestChosenEvent(null));
+        QuestController.instance.SetQuest(null);
+    }
 
+    public void UpdateButtons(NewQuestChosenEvent newQuestEvent)
+    {
+        if (newQuestEvent.quest == null || newQuestEvent.quest.questID != quest.questID)
+        {
+            SetButtonToAccept();
+        }
+        else
+        {
+            SetButtonToAbandon();
+        }
+    }
+
+    private void SetButtonToAccept()
+    {
+        acceptQuestButton.gameObject.SetActive(true);
+        abandonQuestButton.gameObject.SetActive(false);
+        handInQuestButton.gameObject.SetActive(false);
+    }
+
+    private void SetButtonToAbandon()
+    {
+        acceptQuestButton.gameObject.SetActive(false);
+        abandonQuestButton.gameObject.SetActive(true);
+        handInQuestButton.gameObject.SetActive(false);
+    }
+
+    private void SetButtonToHandIn()
+    {
+        acceptQuestButton.gameObject.SetActive(false);
+        abandonQuestButton.gameObject.SetActive(false);
+        handInQuestButton.gameObject.SetActive(true);
     }
 }

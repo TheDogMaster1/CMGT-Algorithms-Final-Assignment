@@ -24,8 +24,7 @@ public class QuestGiver : MonoBehaviour
         if (questMenu.activeSelf || !insideRadius || !context.started) return;
         Debug.Log("Did stuff");
         questMenu.SetActive(true);
-
-        foreach (Quest quest in quests)
+        foreach (var quest in quests)
         {
             QuestObject questObject = Instantiate(questUIPrefab, questsParent).GetComponent<QuestObject>();
             questObject.Init(quest);

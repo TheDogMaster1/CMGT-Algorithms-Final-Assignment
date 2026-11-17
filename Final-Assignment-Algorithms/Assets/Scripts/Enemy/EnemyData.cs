@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Objects/EnemyData")]
 public class EnemyData : ScriptableObject
 {
+    public int ID;
     public int maxHP;
     public float speed;
     public int xp;
@@ -12,13 +13,15 @@ public class EnemyData : ScriptableObject
 
     public Enemy CreateEnemy(Transform pTransform)
     {
-        return new Enemy(maxHP, speed, xp, money, damageData, pTransform);
+        return new Enemy(ID, maxHP, speed, xp, money, damageData, pTransform);
     }
 }
 
 [Serializable]
 public class Enemy
 {
+    public int ID => iD;
+    private int iD;
     public int MaxHP => maxHP;
     private int maxHP;
     public int currentHP;
@@ -33,8 +36,9 @@ public class Enemy
 
     public Transform EnemyPos => enemyPos;
     private Transform enemyPos;
-    public Enemy(int pMaxHP, float pSpeed, int pXp, int pMoney, DamageData pDamageData, Transform pEnemyPos)
+    public Enemy(int pID, int pMaxHP, float pSpeed, int pXp, int pMoney, DamageData pDamageData, Transform pEnemyPos)
     {
+        iD = pID;
         maxHP = pMaxHP;
         currentHP = pMaxHP;
         speed = pSpeed;
