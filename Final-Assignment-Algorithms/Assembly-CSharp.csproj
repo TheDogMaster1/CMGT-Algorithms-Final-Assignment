@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\QuestSystem\QuestObjective.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\PathFindMovingStrategy.cs" />
+    <Compile Include="Assets\Scripts\Player\Observer\PlayerVFXController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Util\AlgorithmsUtils.cs" />
@@ -81,11 +82,12 @@
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\BFSPathFindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Quest.cs" />
     <Compile Include="Assets\Scripts\QuestSystem\QuestGiver.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\AbstractQuestPresenter.cs" />
     <Compile Include="Assets\Scripts\GameSystems\MoneyPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DFSPathFindingAlgorithm.cs" />
-    <Compile Include="Assets\Scripts\Player\Observer\HitVFXController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerLevelController.cs" />
+    <Compile Include="Assets\Scripts\Player\Presenters\XPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerObserver.cs" />
     <Compile Include="Assets\Scripts\Player\AttackAnimationBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\MouseClickController.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Assets\Scripts\Player\FollowPathController.cs" />
     <Compile Include="Assets\Scripts\Util\GameEventDataBase.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\IntValue.cs" />
+    <Compile Include="Assets\Scripts\Player\Presenters\AbstractXPPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\AbstractPathFinderAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Player\Presenters\HPBarPresenter.cs" />
     <Compile Include="Assets\Scripts\Util\EventBus.cs" />

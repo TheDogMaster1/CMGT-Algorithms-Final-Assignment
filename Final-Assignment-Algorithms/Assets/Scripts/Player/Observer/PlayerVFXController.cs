@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HitVFXController : PlayerObserver
+public class PlayerVFXController : PlayerObserver
 {
     [SerializeField]
     private Animator _animator;

@@ -161,6 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3801981244132326436}
+  - component: {fileID: 8299484423032016667}
   m_Layer: 5
   m_Name: XpBar
   m_TagString: Untagged
@@ -190,6 +191,19 @@ RectTransform:
   m_AnchoredPosition: {x: 28, y: -75}
   m_SizeDelta: {x: 600, y: 40}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &8299484423032016667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238968527927419974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd524bfc788600428d95a4dd8f4ec49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpBar: {fileID: 6454982799370707598}
 --- !u!1 &1716642729665591777
 GameObject:
   m_ObjectHideFlags: 0

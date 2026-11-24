@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerLevelController : MonoBehaviour
 {
     public event Action<int> onLevelUp;
+
+    public delegate void OnXpChange(int currentXp, int maxXp);
+    public static event OnXpChange onXpChange;
 
     [Header("PlayerDamageStats")]
     [SerializeField]
@@ -20,16 +22,13 @@ public class PlayerLevelController : MonoBehaviour
     [SerializeField]
     private int currentXp = 0;
 
-    [SerializeField]
-    private Image xpBar;
-
     [Min(1)]
     private int currentLevel = 1;
 
     private void Start()
     {
         damageData = initialDamageData;
-        xpBar.fillAmount = 0;
+        onXpChange?.Invoke(0, 1);
     }
 
     private void OnEnemyDeath(EnemyDieEvent enemyDieEvent)
@@ -61,9 +60,10 @@ public class PlayerLevelController : MonoBehaviour
 
             if (currentLevel != levelXpRequirements.Length + 1)
             {
-                xpBar.fillAmount = (float)currentXp / (float)levelXpRequirements[currentLevel - 1];
+                //xpBar.fillAmount = (float)currentXp / (float)levelXpRequirements[currentLevel - 1];
+                onXpChange?.Invoke(currentXp, levelXpRequirements[currentLevel - 1]);
             }
-            else xpBar.fillAmount = 1;
+            else onXpChange?.Invoke(1, 1);
         }
     }
 
