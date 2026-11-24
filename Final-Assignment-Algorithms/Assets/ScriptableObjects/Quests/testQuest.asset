@@ -21,3 +21,8 @@ MonoBehaviour:
     type: 0
     neededAmount: 5
     currentAmount: 0
+  - objectiveID: 0
+    description: aaaaaaaaaaaaaaa
+    type: 0
+    neededAmount: 600
+    currentAmount: 0

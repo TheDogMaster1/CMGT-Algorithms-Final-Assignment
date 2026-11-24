@@ -35,7 +35,6 @@ public class QuestGiver : MonoBehaviour
             questObject.Init(quest);
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         insideRadius = true;

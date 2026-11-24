@@ -61,12 +61,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.66f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\QuestSystem\QuestScriptableObject\QuestProgress.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\Presenters\TMPQuestPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonSettings.cs" />
     <Compile Include="Assets\DebugDrawingExtension\Example\Example.cs" />
     <Compile Include="Assets\Scripts\Util\DebugDrawingBatcher.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAnimationController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
-    <Compile Include="Assets\Scripts\QuestSystem\QuestObjective.cs" />
     <Compile Include="Assets\DebugDrawingExtension\DebugExtension.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\PathFindMovingStrategy.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerVFXController.cs" />
@@ -82,7 +83,6 @@
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\BFSPathFindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Quest.cs" />
     <Compile Include="Assets\Scripts\QuestSystem\QuestGiver.cs" />
-    <Compile Include="Assets\Scripts\QuestSystem\AbstractQuestPresenter.cs" />
     <Compile Include="Assets\Scripts\GameSystems\MoneyPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\DFSPathFindingAlgorithm.cs" />
@@ -99,13 +99,15 @@
     <Compile Include="Assets\Scripts\QuestSystem\QuestObject.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileGraphGenerator.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\CloseQuestMenu.cs" />
     <Compile Include="Assets\Scripts\Player\playerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\Observer\PlayerMoveController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Observer\EnemyDieController.cs" />
-    <Compile Include="Assets\Scripts\QuestSystem\QuestProgress.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\Presenters\AbstractQuestPresenter.cs" />
     <Compile Include="Assets\Scripts\Dungeon\DungeonAddAssets.cs" />
     <Compile Include="Assets\Scripts\Enemy\Movement\AbstractEnemyMovingStrategy.cs" />
     <Compile Include="Assets\Scripts\Enemy\Observer\EnemyObserver.cs" />
+    <Compile Include="Assets\Scripts\QuestSystem\QuestScriptableObject\QuestObjective.cs" />
     <Compile Include="Assets\Scripts\Dungeon\PathFindingAlgorithms\AStarPathFindingalgorithm.cs" />
     <Compile Include="Assets\Scripts\Player\FollowPathController.cs" />
     <Compile Include="Assets\Scripts\Util\GameEventDataBase.cs" />

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class QuestObject : MonoBehaviour
 {
+    [SerializeField]
     private Quest quest;
 
     [SerializeField]
@@ -27,19 +28,19 @@ public class QuestObject : MonoBehaviour
         quest = pQuest;
         questTitle.text = quest.questName;
         questDescription.text = quest.questDescription;
-        UpdateButtons(new NewQuestChosenEvent(QuestController.instance.GetCurrentQuest().quest));
+        UpdateButtons(new NewQuestChosenEvent(QuestController.Instance.GetCurrentQuest().quest));
     }
 
     public void ChooseQuest()
     {
         EventBus<NewQuestChosenEvent>.Publish(new NewQuestChosenEvent(quest));
-        QuestController.instance.SetQuest(quest);
+        QuestController.Instance.SetQuest(quest);
     }
 
     public void AbandonQuest()
     {
         EventBus<NewQuestChosenEvent>.Publish(new NewQuestChosenEvent(null));
-        QuestController.instance.SetQuest(null);
+        QuestController.Instance.SetQuest(null);
     }
 
     public void UpdateButtons(NewQuestChosenEvent newQuestEvent)
